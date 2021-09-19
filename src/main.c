@@ -33,6 +33,7 @@ int main() {
 
         ASM_handleInput(&ASM, new_ch);
 
+        ASM_update(&ASM);
 
         ASM_draw(&ASM);
         // Atualiza a tela para exibir as alterações

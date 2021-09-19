@@ -23,3 +23,6 @@ bool ASM_handleInput(AppStateMachine * self, int ch);
 
 // Imprime na tela o jogo, respeitando seu estado atual
 void ASM_draw(AppStateMachine * self);
+
+// Loop de Updates
+void ASM_update(AppStateMachine *self);
