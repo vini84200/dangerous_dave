@@ -1,8 +1,8 @@
-cmake_minimum_required (VERSION 3.13)
+cmake_minimum_required (VERSION 3.20)
 project (DDave)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 11)
 
-set(SOURCE_FILES src/main.c)
+set(SOURCE_FILES src/main.c src/erros.c src/erros.h)
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 

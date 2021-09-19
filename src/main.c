@@ -1,8 +1,4 @@
-
-#include <ncurses.h>
-#include <unistd.h>
-
-#include "core.h"
+#include "main.h"
 
 int main() {
     int ch;
@@ -21,26 +17,44 @@ int main() {
     // Ativa o uso das teclas de setas.
     keypad(stdscr, TRUE);
 
+    // Impede que o programa trave esperando ações
+    nodelay(stdscr, TRUE);
+
+    // Limpa a tela antes de executar
+    clear();
+
+
     printw("Hello World !!! :D");
 
     while (executar) {
-        // Limpa a tela antes de executar
-        clear();
-
-        // Atualiza a tela para exibir as alterações
-        refresh();
+        move(0,0);
 
         // Pega caracteres
-        ch = getch();
+        int new_ch = getch();
+        if (new_ch != ERR) {
+            ch = new_ch;
+        }
 
         // Se a tecla Esc for pressionado, encerra a execução.
         if(ch == KEY_ESC) {
             executar = false;
         }
 
-        // Esperra alguns microsegundos
-        usleep(2);
-        printw("Caractere %c, escrito com %d", ch);
+        // FIXME: Remover
+        //  Teste de erro critico
+        if(ch== KEY_F(1)) {
+            errorClose("F1 pressionado");
+        }
+
+        // Espera alguns microssegundos
+        usleep(1000);
+
+        printw("Caractere %c, escrito com %d \n", ch);
+        printw("Tempo: %d", time(NULL));
+
+
+        // Atualiza a tela para exibir as alterações
+        refresh();
     }
 
 
