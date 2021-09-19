@@ -4,6 +4,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+// Arquivo gerado pelo CMake
+#include "config.h"
+
 #ifdef DEBUG
 
 #elif

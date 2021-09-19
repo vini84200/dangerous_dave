@@ -49,8 +49,9 @@ int main() {
         // Espera alguns microssegundos
         usleep(1000);
 
-        printw("Caractere %c, escrito com %d \n", ch);
-        printw("Tempo: %d", time(NULL));
+        printw("Caractere %c, escrito com %d \n", ch, ch);
+        printw("Tempo: %d \n", time(NULL));
+        printw("Versão: DDave %d.%d", DDave_VERSION_MAJOR, DDave_VERSION_MINOR);
 
 
         // Atualiza a tela para exibir as alterações

@@ -1,0 +1,3 @@
+
+#define DDave_VERSION_MAJOR @DDave_VERSION_MAJOR@
+#define DDave_VERSION_MINOR @DDave_VERSION_MINOR@
