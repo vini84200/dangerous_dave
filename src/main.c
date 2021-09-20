@@ -45,6 +45,9 @@ int main() {
         usleep(100);
     }
 
+    // Libera memória
+    destroyASM(ASM);
+    ASM = NULL;
 
     // Encerra o NCurses
     endwin();

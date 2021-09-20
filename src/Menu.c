@@ -30,3 +30,7 @@ bool handleInputMenu(struct Menu *self, int ch) {
     return FALSE;
 }
 
+void destroyMenu(struct Menu * menu) {
+    free(menu);
+}
+

@@ -91,3 +91,11 @@ void ASM_update(struct AppStateMachine *self) {
 
 }
 
+void destroyASM(struct AppStateMachine * self) {
+    destroyMenu(self->menu);
+    self->menu = NULL;
+
+
+    free(self);
+}
+

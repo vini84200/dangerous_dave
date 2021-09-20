@@ -28,3 +28,5 @@ void ASM_draw(struct AppStateMachine *self);
 
 // Loop de Updates
 void ASM_update(struct AppStateMachine *self);
+
+void destroyASM(struct AppStateMachine*);

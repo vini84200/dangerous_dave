@@ -9,6 +9,8 @@ struct Menu{
 
 struct Menu *newMenu(struct AppStateMachine *novaASM);
 
+void destroyMenu(struct Menu*);
+
 void drawMenu(struct Menu*);
 
 // Trata as entradas de um menu, retorna se a entrada foi tratada.
