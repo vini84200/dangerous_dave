@@ -17,4 +17,3 @@
 
 // Por algum motivo, o nCurses não define o código do esc
 #define KEY_ESC 27
-

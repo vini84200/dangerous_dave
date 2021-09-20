@@ -6,8 +6,10 @@ int main() {
 
     // Inicializa o modo NCurses
     initscr();
+
     // Desabilita o buffer de caracteres(eg. permite a leitura de caracteres sem ter que esperar o enter)
     raw();
+
     // Impede que os caracteres pressionados apareçam na tela
     noecho();
 
@@ -23,19 +25,19 @@ int main() {
     // Limpa a tela antes de executar
     clear();
 
-    AppStateMachine ASM = ASM_newASM();
+    struct AppStateMachine *ASM = ASM_newASM();
 
-    while (ASM.executar) {
+    while (ASM->executar) {
         move(0,0);
 
         // Pega caracteres
         int new_ch = getch();
 
-        ASM_handleInput(&ASM, new_ch);
+        ASM_handleInput(ASM, new_ch);
 
-        ASM_update(&ASM);
+        ASM_update(ASM);
 
-        ASM_draw(&ASM);
+        ASM_draw(ASM);
         // Atualiza a tela para exibir as alterações
         refresh();
 
