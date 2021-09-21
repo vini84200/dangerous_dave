@@ -87,11 +87,18 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
     return FALSE;
 }
 
-void ASM_update(struct AppStateMachine *self) {
-
+void ASM_update(struct AppStateMachine *self, double delta) {
+    switch (self->estado) {
+        case MENU:
+            break;
+        case IN_GAME:
+            break;
+        case ENCERRAMENTO:
+            break;
+    }
 }
 
-void destroyASM(struct AppStateMachine * self) {
+void destroyASM(struct AppStateMachine* self) {
     destroyMenu(self->menu);
     self->menu = NULL;
 

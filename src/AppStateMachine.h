@@ -27,6 +27,6 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch);
 void ASM_draw(struct AppStateMachine *self);
 
 // Loop de Updates
-void ASM_update(struct AppStateMachine *self);
+void ASM_update(struct AppStateMachine *self, double delta);
 
 void destroyASM(struct AppStateMachine*);

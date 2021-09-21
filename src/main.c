@@ -27,6 +27,9 @@ int main() {
 
     struct AppStateMachine *ASM = ASM_newASM();
 
+    struct timespec ts;
+    timespec_get(&ts, TIME_UTC);
+    struct timespec last_ts = ts;
     while (ASM->executar) {
         move(0,0);
 
@@ -35,12 +38,14 @@ int main() {
 
         ASM_handleInput(ASM, new_ch);
 
-        ASM_update(ASM);
+
+        timespec_get(&ts, TIME_UTC);
+        ASM_update(ASM, (double)(ts.tv_nsec - last_ts.tv_nsec) / (1e9));
+        last_ts = ts;
 
         ASM_draw(ASM);
         // Atualiza a tela para exibir as alterações
         refresh();
-
         // Espera alguns microssegundos
         usleep(100);
     }

@@ -11,6 +11,7 @@ struct Menu *newMenu(struct AppStateMachine *novaASM) {
 void drawMenu(struct Menu *self) {
     printw("MENU!\n");
     printw("Selecionado: %d\n", self->selecionado);
+    printw("FPS: %d\n", self->fps);
 }
 
 bool handleInputMenu(struct Menu *self, int ch) {
@@ -32,5 +33,9 @@ bool handleInputMenu(struct Menu *self, int ch) {
 
 void destroyMenu(struct Menu * menu) {
     free(menu);
+}
+
+void updateMenu(struct Menu *self, double delta) {
+    self->fps = (float) (1/delta);
 }
 
