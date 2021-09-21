@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "AppStateMachine.h"
+#include "erros.h"
 
 struct Menu *newMenu(struct AppStateMachine *novaASM) {
     struct Menu *menu = malloc(sizeof(struct Menu));
@@ -8,10 +9,25 @@ struct Menu *newMenu(struct AppStateMachine *novaASM) {
     return menu;
 }
 
+
 void drawMenu(struct Menu *self) {
-    printw("MENU!\n");
-    printw("Selecionado: %d\n", self->selecionado);
-    printw("FPS: %d\n", self->fps);
+    erase();
+    escreverCentralizado("MENU!", 0);
+    escreverCentralizado("MENU!", 1);
+    char* txt_selecionado [30];
+    snprintf(txt_selecionado, 30, "Selecionado: %d", self->selecionado);
+    escreverCentralizado(txt_selecionado, 3);
+    char* txt_fps [14];
+    snprintf(txt_fps, 14,"FPS: %4.3f", self->fps);
+    escreverCentralizado(txt_fps, 4);
+}
+
+void escreverCentralizado(const char *palavra, int y) {
+    int x = getmaxx(stdscr);
+    int centro = x/2;
+
+    move(y, centro - strlen(palavra) / 2);
+    printw(palavra);
 }
 
 bool handleInputMenu(struct Menu *self, int ch) {

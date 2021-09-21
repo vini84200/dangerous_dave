@@ -41,13 +41,14 @@ int main() {
 
         timespec_get(&ts, TIME_UTC);
         ASM_update(ASM, (double)(ts.tv_nsec - last_ts.tv_nsec) / (1e9));
-        last_ts = ts;
 
         ASM_draw(ASM);
         // Atualiza a tela para exibir as alterações
         refresh();
         // Espera alguns microssegundos
-        usleep(100);
+        usleep(1e6/FPS_LIMIT);
+        last_ts = ts;
+
     }
 
     // Libera memória

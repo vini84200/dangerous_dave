@@ -91,6 +91,7 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
 void ASM_update(struct AppStateMachine *self, double delta) {
     switch (self->estado) {
         case MENU:
+            updateMenu(self->menu, delta);
             break;
         case IN_GAME:
             break;

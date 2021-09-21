@@ -12,7 +12,7 @@ void header(){
 void game(){
     //Cabecalho
     WINDOW * head = newwin(3, 120, 0, 0);
-    refresh();
+
     move(1, 3);
     header();
     box(head, 0, 0);
@@ -20,7 +20,7 @@ void game(){
 
     //Corpo do jogo
     WINDOW * body = newwin(30, 120, 4, 0);
-    refresh();
+//    refresh();
     box(body, 0, 0);
     wrefresh(body);
 
