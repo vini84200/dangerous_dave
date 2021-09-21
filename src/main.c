@@ -6,8 +6,10 @@ int main() {
 
     // Inicializa o modo NCurses
     initscr();
+
     // Desabilita o buffer de caracteres(eg. permite a leitura de caracteres sem ter que esperar o enter)
     raw();
+
     // Impede que os caracteres pressionados apareçam na tela
     noecho();
 
@@ -23,26 +25,35 @@ int main() {
     // Limpa a tela antes de executar
     clear();
 
-    AppStateMachine ASM = ASM_newASM();
+    struct AppStateMachine *ASM = ASM_newASM();
 
-    while (ASM.executar) {
+    struct timespec ts;
+    timespec_get(&ts, TIME_UTC);
+    struct timespec last_ts = ts;
+    while (ASM->executar) {
         move(0,0);
 
         // Pega caracteres
         int new_ch = getch();
 
-        ASM_handleInput(&ASM, new_ch);
+        ASM_handleInput(ASM, new_ch);
 
-        ASM_update(&ASM);
 
-        ASM_draw(&ASM);
+        timespec_get(&ts, TIME_UTC);
+        ASM_update(ASM, (double)(ts.tv_nsec - last_ts.tv_nsec) / (1e9));
+
+        ASM_draw(ASM);
         // Atualiza a tela para exibir as alterações
         refresh();
-
         // Espera alguns microssegundos
-        usleep(100);
+        usleep(1e6/FPS_LIMIT);
+        last_ts = ts;
+
     }
 
+    // Libera memória
+    destroyASM(ASM);
+    ASM = NULL;
 
     // Encerra o NCurses
     endwin();
