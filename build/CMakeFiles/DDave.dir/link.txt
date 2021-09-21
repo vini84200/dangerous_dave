@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/DDave.dir/src/main.c.o CMakeFiles/DDave.dir/src/erros.c.o CMakeFiles/DDave.dir/src/AppStateMachine.c.o  -o DDave  -lncurses -ltinfo 

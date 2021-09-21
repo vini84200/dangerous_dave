@@ -1,3 +1,0 @@
-/home/claytonckob/Desktop/main_folder/dangerous_dave/build/CMakeFiles/rebuild_cache.dir
-/home/claytonckob/Desktop/main_folder/dangerous_dave/build/CMakeFiles/edit_cache.dir
-/home/claytonckob/Desktop/main_folder/dangerous_dave/build/CMakeFiles/DDave.dir
