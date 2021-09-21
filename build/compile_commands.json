@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/claytonckob/Desktop/main_folder/dangerous_dave/build",
+  "command": "/usr/bin/cc  -I/home/claytonckob/Desktop/main_folder/dangerous_dave/build  -g   -DDEBUG -std=gnu11 -o CMakeFiles/DDave.dir/src/main.c.o   -c /home/claytonckob/Desktop/main_folder/dangerous_dave/src/main.c",
+  "file": "/home/claytonckob/Desktop/main_folder/dangerous_dave/src/main.c"
+},
+{
+  "directory": "/home/claytonckob/Desktop/main_folder/dangerous_dave/build",
+  "command": "/usr/bin/cc  -I/home/claytonckob/Desktop/main_folder/dangerous_dave/build  -g   -DDEBUG -std=gnu11 -o CMakeFiles/DDave.dir/src/erros.c.o   -c /home/claytonckob/Desktop/main_folder/dangerous_dave/src/erros.c",
+  "file": "/home/claytonckob/Desktop/main_folder/dangerous_dave/src/erros.c"
+},
+{
+  "directory": "/home/claytonckob/Desktop/main_folder/dangerous_dave/build",
+  "command": "/usr/bin/cc  -I/home/claytonckob/Desktop/main_folder/dangerous_dave/build  -g   -DDEBUG -std=gnu11 -o CMakeFiles/DDave.dir/src/AppStateMachine.c.o   -c /home/claytonckob/Desktop/main_folder/dangerous_dave/src/AppStateMachine.c",
+  "file": "/home/claytonckob/Desktop/main_folder/dangerous_dave/src/AppStateMachine.c"
+}
+]

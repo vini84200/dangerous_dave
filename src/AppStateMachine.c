@@ -1,5 +1,6 @@
 #include "AppStateMachine.h"
 #include "erros.h"
+#include "game.h"
 
 void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
     self->estado = newState;
@@ -27,7 +28,7 @@ void ASM_draw(struct AppStateMachine *self) {
     if (self->estado == IN_GAME) {
         // Exibe jogo
         move(0,0);
-        printw("JOGO");
+        game();
         return;
     }
 

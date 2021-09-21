@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/AppStateMachine.c
+AppStateMachine.h
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/AppStateMachine.h
+erros.h
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/erros.h
+game.h
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/game.h
+
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/AppStateMachine.h
+core.h
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/core.h
+
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/config.h
+
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/core.h
+ncurses.h
+-
+stdio.h
+-
+unistd.h
+-
+stdlib.h
+-
+config.h
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/config.h
+
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/erros.h
+core.h
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/core.h
+
+/home/claytonckob/Desktop/main_folder/dangerous_dave/src/game.h
+ncurses.h
+-
+
