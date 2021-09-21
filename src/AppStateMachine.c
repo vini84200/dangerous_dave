@@ -2,25 +2,26 @@
 #include "erros.h"
 #include "game.h"
 
-void ASM_mudarEstado(AppStateMachine *self, AppState newState) {
+void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
     self->estado = newState;
     // Limpa a tela quando mudar o estado.
     clear();
 }
 
-AppStateMachine ASM_newASM() {
-    AppStateMachine novaASM;
-    novaASM.estado = MENU;
-    novaASM.executar = true;
+struct AppStateMachine* ASM_newASM() {
+    // Aloca o espaço na memória da ASM
+    struct AppStateMachine* novaASM = malloc(sizeof (struct AppStateMachine));
+    novaASM->estado = MENU;
+    novaASM->executar = true;
+    novaASM->menu  = newMenu(novaASM);
+
     clear();
     return novaASM;
 }
 
-void ASM_draw(AppStateMachine *self) {
+void ASM_draw(struct AppStateMachine *self) {
     if (self->estado == MENU) {
-        // Exibe menu
-        move(0,0);
-        printw("MENU");
+        drawMenu(self->menu);
         return;
     }
 
@@ -39,11 +40,11 @@ void ASM_draw(AppStateMachine *self) {
     }
 }
 
-bool ASM_handleInput(AppStateMachine *self, int ch) {
+bool ASM_handleInput(struct AppStateMachine *self, int ch) {
     // TODO(vini84200) Usar um switch aqui.
 
     if ( ch == ERR ) {
-        return FALSE;
+        return TRUE;
     }
 
     // Se a tecla Esc for pressionado, encerra a execução.
@@ -69,10 +70,33 @@ bool ASM_handleInput(AppStateMachine *self, int ch) {
         return TRUE;
     }
 
+    if(ch== KEY_F(5)) {
+        clear();
+        return TRUE;
+    }
+
+    switch (self->estado) {
+        case MENU:
+            if(handleInputMenu(self->menu, ch)) return TRUE;
+            break;
+        case IN_GAME:
+            break;
+        case ENCERRAMENTO:
+            break;
+    }
+
     return FALSE;
 }
 
-void ASM_update(AppStateMachine *self) {
+void ASM_update(struct AppStateMachine *self) {
 
+}
+
+void destroyASM(struct AppStateMachine * self) {
+    destroyMenu(self->menu);
+    self->menu = NULL;
+
+
+    free(self);
 }
 

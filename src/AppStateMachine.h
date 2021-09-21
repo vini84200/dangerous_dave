@@ -1,5 +1,6 @@
 #pragma once
 #include "core.h"
+#include "Menu.h"
 
 typedef enum {
     MENU,
@@ -7,22 +8,25 @@ typedef enum {
     ENCERRAMENTO
 } AppState;
 
-typedef struct {
+struct AppStateMachine {
     AppState estado;
     bool executar;
-} AppStateMachine;
+    struct Menu* menu;
+};
 
 // Atualiza o estado de uma ASM
-void ASM_mudarEstado(AppStateMachine * self, AppState newState);
+void ASM_mudarEstado(struct AppStateMachine *self, AppState newState);
 
 // Cria uma AppStateMachine no Menu
-AppStateMachine ASM_newASM();
+struct AppStateMachine* ASM_newASM();
 
 // Recebe as teclas que são pressionadas para alterar seus estados. Retorna se a tecla foi tratada.
-bool ASM_handleInput(AppStateMachine * self, int ch);
+bool ASM_handleInput(struct AppStateMachine *self, int ch);
 
 // Imprime na tela o jogo, respeitando seu estado atual
-void ASM_draw(AppStateMachine * self);
+void ASM_draw(struct AppStateMachine *self);
 
 // Loop de Updates
-void ASM_update(AppStateMachine *self);
+void ASM_update(struct AppStateMachine *self);
+
+void destroyASM(struct AppStateMachine*);
