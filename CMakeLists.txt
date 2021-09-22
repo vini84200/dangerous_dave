@@ -8,6 +8,7 @@ set(SOURCE_FILES
         src/erros.c
         src/AppStateMachine.c
         src/Menu.c
+        src/game.c
         )
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 

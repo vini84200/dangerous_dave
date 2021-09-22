@@ -1,28 +1,15 @@
 #pragma once
 #include <ncurses.h>
 
-void header(){
-    int score = 1000;
-    int level = 1;
-    int lifes = 3;
+#define TAMANHOY 30
+#define TAMANHOX 120
 
-    printw("SCORE: %4.d LEVEL: %2.d LIFES: %2.d", score, level, lifes);
-}
+void drawElement(char elemento, int color);
+void drawMap(char vetor[TAMANHOY][TAMANHOX]);
+void header();
+void game();
 
-void game(){
-    //Cabecalho
-    WINDOW * head = newwin(3, 120, 0, 0);
 
-    move(1, 3);
-    header();
-    box(head, 0, 0);
-    wrefresh(head);
 
-    //Corpo do jogo
-    WINDOW * body = newwin(30, 120, 4, 0);
-//    refresh();
-    box(body, 0, 0);
-    wrefresh(body);
 
-}
 
