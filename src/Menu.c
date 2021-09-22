@@ -24,6 +24,11 @@ void drawMenu(struct Menu *self) {
     escreverOpcao("Ranking", self->selecionado == 2, startMenuY+5);
     escreverOpcao("Sair", self->selecionado == 3, startMenuY+6);
 
+    char txt_versao [32];
+    sprintf(txt_versao, "DDave %d.%d", DDave_VERSION_MAJOR, DDave_VERSION_MINOR);
+    escreverCentralizado(txt_versao, startMenuY+8);
+
+
 #ifdef DEBUG
     char* txt_debug [40];
     snprintf(txt_debug, 40, "Selecionado: %d | FPS: %4.3f", self->selecionado, self->fps);
