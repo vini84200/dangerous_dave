@@ -1,7 +1,5 @@
 #pragma once
-#include <ncurses.h>
-#include <stdlib.h>
-#include <string.h>
+#include "core.h"
 #include "erros.h"
 #include "files.h"
 

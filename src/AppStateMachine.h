@@ -3,6 +3,7 @@
 #include "Menu.h"
 
 typedef enum {
+    INICIANDO,
     MENU,
     IN_GAME,
     ENCERRAMENTO

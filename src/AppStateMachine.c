@@ -13,6 +13,7 @@ void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
             leave_game(self->game);
             break;
         case MENU:
+            leave_menu(self->menu);
             break;
         case ENCERRAMENTO:
             break;
@@ -24,6 +25,7 @@ void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
             enter_game(self->game);
             break;
         case MENU:
+            enter_menu(self->menu);
             break;
         case ENCERRAMENTO:
             break;
@@ -35,7 +37,7 @@ void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
 struct AppStateMachine* ASM_newASM() {
     // Aloca o espaço na memória da ASM
     struct AppStateMachine* novaASM = malloc(sizeof (struct AppStateMachine));
-    novaASM->estado = MENU;
+    novaASM->estado = INICIANDO;
     novaASM->executar = true;
     novaASM->menu  = newMenu(novaASM);
     novaASM->game = newGame(novaASM);
@@ -44,6 +46,10 @@ struct AppStateMachine* ASM_newASM() {
 }
 
 void ASM_draw(struct AppStateMachine *self) {
+    if(self->estado == INICIANDO) {
+        ASM_mudarEstado(self, MENU);
+    }
+
     if (self->estado == MENU) {
         drawMenu(self->menu);
         return;
