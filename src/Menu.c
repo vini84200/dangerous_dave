@@ -82,6 +82,7 @@ bool handleInputMenu(struct Menu *self, int ch) {
 
             switch(self->selecionado) {
                 case NOVO_JOGO:
+                    // TODO: Reiniciar o Jogo
                     ASM_mudarEstado(self->ASM, IN_GAME);
                     // Começa o jogo:
                     break;

@@ -12,6 +12,7 @@ struct AppStateMachine {
     AppState estado;
     bool executar;
     struct Menu* menu;
+    struct Game* game;
 };
 
 // Atualiza o estado de uma ASM

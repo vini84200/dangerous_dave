@@ -3,7 +3,31 @@
 #include "game.h"
 
 void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
+    if (self->estado == newState) {
+        clear();
+        return;
+    }
+    // Executa saida de estado
+    switch (newState) {
+        case IN_GAME:
+            leave_game(self->game);
+            break;
+        case MENU:
+            break;
+        case ENCERRAMENTO:
+            break;
+    }
     self->estado = newState;
+    // Executa a entrada do novo estado
+    switch (newState) {
+        case IN_GAME:
+            enter_game(self->game);
+            break;
+        case MENU:
+            break;
+        case ENCERRAMENTO:
+            break;
+    }
     // Limpa a tela quando mudar o estado.
     clear();
 }
@@ -14,7 +38,7 @@ struct AppStateMachine* ASM_newASM() {
     novaASM->estado = MENU;
     novaASM->executar = true;
     novaASM->menu  = newMenu(novaASM);
-
+    novaASM->game = newGame(novaASM);
     clear();
     return novaASM;
 }
@@ -28,7 +52,7 @@ void ASM_draw(struct AppStateMachine *self) {
     if (self->estado == IN_GAME) {
         // Exibe jogo
         move(0,0);
-        game();
+        game(self->game);
         return;
     }
 
@@ -103,7 +127,8 @@ void ASM_update(struct AppStateMachine *self, double delta) {
 void destroyASM(struct AppStateMachine* self) {
     destroyMenu(self->menu);
     self->menu = NULL;
-
+    destroyGame(self->game);
+    self->game = NULL;
 
     free(self);
 }
