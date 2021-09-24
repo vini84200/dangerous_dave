@@ -9,7 +9,6 @@ struct Menu *newMenu(struct AppStateMachine *novaASM) {
     return menu;
 }
 
-
 void drawMenu(struct Menu *self) {
     int maxY = getmaxy(stdscr);
     erase();
@@ -19,10 +18,10 @@ void drawMenu(struct Menu *self) {
 
     escreverTitulo(startMenuY);
     // +3
-    escreverOpcao("Novo Jogo", self->selecionado == 0, startMenuY+3);
-    escreverOpcao("Carregar", self->selecionado == 1, startMenuY+4);
-    escreverOpcao("Ranking", self->selecionado == 2, startMenuY+5);
-    escreverOpcao("Sair", self->selecionado == 3, startMenuY+6);
+    escreverOpcao("Novo Jogo", self->selecionado == NOVO_JOGO, startMenuY+3);
+    escreverOpcao("Carregar", self->selecionado == CARREGAR, startMenuY+4);
+    escreverOpcao("Ranking", self->selecionado == RANK, startMenuY+5);
+    escreverOpcao("Sair", self->selecionado == SAIR, startMenuY+6);
 
     char txt_versao [32];
     sprintf(txt_versao, "DDave %d.%d", DDave_VERSION_MAJOR, DDave_VERSION_MINOR);
@@ -69,8 +68,6 @@ void escreverOpcao(char *text, bool selecionado, int y) {
 bool handleInputMenu(struct Menu *self, int ch) {
     switch (ch) {
         case KEY_BACKSPACE:
-            printw("handleInputMenu: %h \n",self);
-            printw("handleInputMenu: %h \n",self->ASM);
             ASM_mudarEstado(self->ASM, IN_GAME);
             return TRUE;
         case KEY_DOWN:
@@ -81,8 +78,23 @@ bool handleInputMenu(struct Menu *self, int ch) {
             self->selecionado--;
             if (self->selecionado < 0) self->selecionado = 0;
             return TRUE;
-        case KEY_ENTER:
-            break;
+        case '\n':
+
+            switch(self->selecionado) {
+                case NOVO_JOGO:
+                    ASM_mudarEstado(self->ASM, IN_GAME);
+                    // Começa o jogo:
+                    break;
+                case CARREGAR:
+                    // COM
+                    break;
+                case RANK:
+                    break;
+                case SAIR:
+                    self->ASM->executar = false;
+                    break;
+            }
+            return TRUE;
     }
     return FALSE;
 }

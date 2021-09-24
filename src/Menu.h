@@ -5,9 +5,13 @@
 #define MENU_HEIGHT 9
 #define MIN_Y MENU_HEIGHT + 6
 
+#define NOVO_JOGO   0
+#define CARREGAR    1
+#define RANK        2
+#define SAIR        3
 #define MENU_OPCOES 4
 
-struct Menu{
+struct Menu {
     int selecionado;
     struct AppStateMachine *ASM;
     float fps;
