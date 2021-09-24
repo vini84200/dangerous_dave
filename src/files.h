@@ -1,3 +1,4 @@
-#define PASTA_ASSETS "./assets"
-#define NIVEIS PASTA_ASSETS "/niveis"
+#include "config.h"
+#define PASTA_ASSETS BIN_DIR "/assets"
+#define PASTA_NIVEIS PASTA_ASSETS "/niveis"
 

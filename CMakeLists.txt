@@ -29,3 +29,5 @@ target_link_libraries(DDave ncurses tinfo)
 target_include_directories(DDave PUBLIC
         "${PROJECT_BINARY_DIR}"
         )
+
+file(COPY assets/ DESTINATION ${CMAKE_BINARY_DIR}/assets)

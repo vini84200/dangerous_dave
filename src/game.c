@@ -1,5 +1,4 @@
 #include "game.h"
-#include "erros.h"
 
 void drawElement(WINDOW * window, char elemento, int color){
     wattron(window,COLOR_PAIR(color));
@@ -53,7 +52,6 @@ void header(struct Game* self){
 }
 
 void game(struct Game *self){
-    start_color();
 
     if (self->fase == 0) {
         loadFase(self, 1);
@@ -84,22 +82,24 @@ void destroyGame(struct Game *self) {
 
 void loadFase(struct Game *self, int novaFase) {
     FILE *myFile;
-    myFile = fopen("src/fase_01.txt", "r");
+    myFile = fopen(PASTA_NIVEIS "/fase_01.txt", "r");
 
 
     if (myFile == NULL){
         errorClose("Erro lendo o arquivo!");
     }
+
     for(int i = 0; i < TAMANHOY; i++){
         fgets(self->mapa[i], TAMANHOX, myFile);
     }
 
     fclose(myFile);
+    myFile = NULL;
     self->fase = novaFase;
 }
 
 void enter_game(struct Game *self) {
-
+    start_color();
 
     if(has_colors() == FALSE){
         errorClose("Seu terminal não suporta cores.");
@@ -121,6 +121,8 @@ void leave_game(struct Game *self) {
     self->head = NULL;
     delwin(self->body);
     self->body = NULL;
+
+    use_default_colors();
 }
 
 

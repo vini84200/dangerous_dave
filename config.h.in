@@ -1,3 +1,5 @@
-
+#pragma once
 #define DDave_VERSION_MAJOR @DDave_VERSION_MAJOR@
 #define DDave_VERSION_MINOR @DDave_VERSION_MINOR@
+
+#define BIN_DIR "@CMAKE_BINARY_DIR@"

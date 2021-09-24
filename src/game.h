@@ -2,6 +2,8 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
+#include "erros.h"
+#include "files.h"
 
 #define TAMANHOY 30
 #define TAMANHOX 121

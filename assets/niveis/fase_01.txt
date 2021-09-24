@@ -4,7 +4,7 @@ x                                                                               
 x     J                                                                                                               x
 x     x                 @                                                                                             x
 x         xxx           x                                                                                             x
-x                            xxxxxxxxxxxxxxx                                                                          x
+x                            xxxxxxxXXXxxxxx                                                                          x
 x                                                    $                                                                x
 x                                                xxxxxxxxx                                                            x
 x                   #                   !                                                                             x
