@@ -54,7 +54,7 @@ void escreverTitulo(int y) {
 void escreverOpcao(char *text, bool selecionado, int y) {
     if (selecionado) {
 
-        char *selectedLine[30];
+        char *selectedLine[30] = {'\0'};
         strcat(selectedLine, "*<");
         strcat(selectedLine, text);
         strcat(selectedLine, ">* ");
