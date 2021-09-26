@@ -9,6 +9,7 @@ set(SOURCE_FILES
         src/AppStateMachine.c
         src/Menu.c
         src/game.c
+        src/models/Entidade.c
         )
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 

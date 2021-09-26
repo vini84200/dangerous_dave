@@ -2,18 +2,22 @@
 #include "core.h"
 #include "erros.h"
 #include "files.h"
+#include "models/Entidade.h"
 
 #define TAMANHOY 30
-#define TAMANHOX 121
+#define TAMANHOX 120
 
 struct Game {
     int fase;
-    char mapa[TAMANHOY][TAMANHOX];
     struct AppStateMachine* ASM;
     int pontuacao;
     int vidas;
     WINDOW * head;
     WINDOW * body;
+
+    char mapa[TAMANHOY][TAMANHOX];
+    struct Entidade entidades[MAX_ENTIDADES];
+    struct Entidade* jogador;
 };
 
 struct Game* newGame(struct AppStateMachine *novaASM);

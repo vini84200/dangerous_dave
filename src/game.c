@@ -1,4 +1,5 @@
 #include "game.h"
+#include "Menu.h"
 
 void drawElement(WINDOW * window, char elemento, int color){
     wattron(window,COLOR_PAIR(color));
@@ -9,24 +10,41 @@ void drawElement(WINDOW * window, char elemento, int color){
 
 void drawMap(struct Game* self){
     init_color_pairs();
+    int posy = 4;
+    int posx = 1;
     wmove(self->body, 4, 0);
 	for (int i = 0; i < TAMANHOY; i++) {
 		for (int r = 0; r < TAMANHOX; r++) {
-            int posy = 4;
-            int posx = 1;
+
             wmove(self->body, posy + i, posx + r);
 			switch(self->mapa[i][r]) {
-				case 'x':   drawElement(self->body, ' ',  1);  break;
+				case 'X':   drawElement(self->body, ' ',  1);  break;
                 case 'A':   drawElement(self->body, 'A',  2);  break;
-                case 'J':   drawElement(self->body, 'H',  3);  break;
-                case 'D':   drawElement(self->body, 'D',  4);  break;
                 case 'P':   drawElement(self->body, 'P',  5);  break;
-                case 'T':   drawElement(self->body, 'T',  6);  break;
                 case 'O':   drawElement(self->body, 'O',  7);  break;
                 case 'F':   drawElement(self->body, 'F',  8);  break;
-                case '!':   drawElement(self->body, '!',  4);  break;
                 case ' ':   drawElement(self->body, ' ',  0);  break;
             }
+        }
+    }
+    for (int i = 0; i < MAX_ENTIDADES; ++i) {
+        if (self->entidades[i].tipo == BRANCO) break;
+        wmove(self->body, posy + self->entidades[i].pos.x, posx + self->entidades[i].pos.y);
+        switch(self->entidades[i].tipo) {
+            case JETPACK:   drawElement(self->body, 'H',  3);  break;
+            case JOGADOR:   drawElement(self->body, 'D',  4);  break;
+            case TROFEU:   drawElement(self->body, 'T',  6);  break;
+            case AMETISTA:   drawElement(self->body, '!',  4);  break;
+            case BRANCO:
+                break;
+            case SAFIRA:
+                break;
+            case RUBI:
+                break;
+            case ANEL:
+                break;
+            case COROA:
+                break;
         }
     }
     wrefresh(self->body);
@@ -46,8 +64,8 @@ void init_color_pairs() {
 }
 
 void header(struct Game* self){
-    wprintw(self->head, "SCORE: %4.d LEVEL: %2.d LIFES: %2.d", self->pontuacao, self->fase, self->vidas);
-    wmove(self->head, 1, 3);
+    wmove(self->head, 0, 3);
+    wprintw(self->head, "SCORE: %4.d \t\t LEVEL: %2.d \t\t LIFES: %2.d", self->pontuacao, self->fase, self->vidas);
     wrefresh(self->head);
 }
 
@@ -73,6 +91,10 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     g->pontuacao = 1000;
     g->head = NULL;
     g->head = NULL;
+    g->jogador = NULL;
+    for (int i = 0; i < MAX_ENTIDADES; ++i) {
+        g->entidades[i].tipo = BRANCO;
+    }
     return g;
 }
 
@@ -89,8 +111,27 @@ void loadFase(struct Game *self, int novaFase) {
         errorClose("Erro lendo o arquivo!");
     }
 
+    int entidadesIndex = 0;
+
     for(int i = 0; i < TAMANHOY; i++){
-        fgets(self->mapa[i], TAMANHOX, myFile);
+        for (int j = 0; j < TAMANHOX; j++) {
+            int ch = fgetc(myFile);
+            if (ch == ' ' || ch == '\n') continue;
+            if (ch == 'X' || ch == 'P' || ch == 'O' || ch == 'A' || ch == 'F') {
+                self->mapa[i][j] = (char) ch;
+                continue;
+            }
+            self->entidades[entidadesIndex];
+            self->entidades[entidadesIndex] = newEntidadeFromCh(i, j, (char) ch);
+            if(self->entidades[entidadesIndex].tipo == JOGADOR) {
+                self->jogador = &self->entidades[entidadesIndex];
+            }
+            entidadesIndex++;
+        }
+    }
+
+    if (self->jogador == NULL) {
+        errorClose("MAPA INVALIDO! Sem posição do jogador.");
     }
 
     fclose(myFile);
@@ -106,7 +147,7 @@ void enter_game(struct Game *self) {
     }
 
     if (self->head == NULL) {
-        self->head = newwin(3, 120, 0, 0);
+        self->head = newwin(1, 120, 0, 0);
     }
 
     if (self->body == NULL) {

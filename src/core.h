@@ -12,3 +12,4 @@
 #define KEY_ESC 27
 
 #define FPS_LIMIT 170
+#define MAX_ENTIDADES 180
