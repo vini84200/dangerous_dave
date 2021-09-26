@@ -61,7 +61,20 @@ void init_color_pairs() {
 
 void header(struct Game* self){
     wmove(self->head, 0, 3);
-    wprintw(self->head, "SCORE: %4.d \t\t LEVEL: %2.d \t\t LIFES: %2.d", self->pontuacao, self->fase, self->vidas);
+    if(self->temJetpack) {
+        if(self->temTrofeu) {
+            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t JETPACK \t\t TROFEU", self->pontuacao, self->fase, self->vidas);
+        }else {
+            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t JETPACK", self->pontuacao, self->fase, self->vidas);
+        }
+    }else {
+        if(self->temTrofeu) {
+            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t TROFEU", self->pontuacao, self->fase, self->vidas);
+        }else {
+            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d", self->pontuacao, self->fase, self->vidas);
+        }
+
+    }
     wrefresh(self->head);
 }
 
@@ -144,6 +157,8 @@ void loadFase(struct Game *self, int novaFase) {
     fclose(myFile);
     myFile = NULL;
     self->fase = novaFase;
+    self->temJetpack = false;
+    self->temTrofeu = false;
 }
 
 void enter_game(struct Game *self) {
