@@ -31,6 +31,7 @@ void drawMap(struct Game* self){
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         if (self->entidades[i].tipo == BRANCO) break;
         wmove(self->body, posy + self->entidades[i].pos.y, posx + self->entidades[i].pos.x);
+        if (!self->entidades[i].ativo) continue;
         switch(self->entidades[i].tipo) {
             case JETPACK:   drawElement(self->body, 'H',  3);  break;
             case JOGADOR:   drawElement(self->body, 'D',  4);  break;
@@ -93,6 +94,9 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     g->head = NULL;
     g->body = NULL;
     g->jogador = NULL;
+    g->temTrofeu = false;
+    g->temJetpack = false;
+    g->jetpackMode = false;
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         g->entidades[i].tipo = BRANCO;
     }
@@ -218,12 +222,21 @@ void movePlayer(struct Game *self, int deltaX, int deltaY) {
     self->jogador->pos.x += deltaX;
     self->jogador->pos.y += deltaY;
 
-    // TODO Colisão com AGUA e FOGO
     char mapPosition = self->mapa[self->jogador->pos.y][self->jogador->pos.x];
     if (mapPosition == 'F' || mapPosition == 'A') {
         morrer(self);
     }
-    // TODO Colisão com outros objetos
+
+    for (int i = 0; i < MAX_ENTIDADES; ++i) {
+        if (self->entidades[i].tipo == BRANCO) break;
+        if (self->entidades[i].tipo == JOGADOR) continue;
+
+        if(self->entidades[i].pos.x == self->jogador->pos.x
+            && self->entidades[i].pos.y == self->jogador->pos.y){
+            // Colisão ocorre aqui
+            onColissaoEntidade(self, &self->entidades[i]);
+        }
+    }
 }
 
 void tryMovePlayer(struct Game *self, int deltaX, int deltaY) {
@@ -243,6 +256,35 @@ void morrer(struct Game *self) {
 void gameOver(struct Game *self) {
     // TODO GAME OVER
     errorClose("GAME OVER! Não implementado");
+}
+
+void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
+    if (!entidade->ativo) return;
+    entidade->ativo = false;
+
+    switch (entidade->tipo) {
+        case TROFEU:
+            self->temTrofeu = true;
+            break;
+        case JETPACK:
+            self->temJetpack = true;
+            break;
+        case AMETISTA:
+            self->pontuacao += 50;
+            break;
+        case SAFIRA:
+            self->pontuacao += 100;
+            break;
+        case RUBI:
+            self->pontuacao += 150;
+            break;
+        case ANEL:
+            self->pontuacao += 200;
+            break;
+        case COROA:
+            self->pontuacao += 300;
+            break;
+    }
 }
 
 

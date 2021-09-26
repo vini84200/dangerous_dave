@@ -12,6 +12,9 @@ struct Game {
     struct AppStateMachine* ASM;
     int pontuacao;
     int vidas;
+    bool temTrofeu;
+    bool temJetpack;
+    bool jetpackMode;
     WINDOW * head;
     WINDOW * body;
 
@@ -19,6 +22,7 @@ struct Game {
     struct Entidade entidades[MAX_ENTIDADES];
     struct Entidade* jogador;
     struct Vec2Int entrada;
+
 };
 
 struct Game* newGame(struct AppStateMachine *novaASM);
@@ -61,3 +65,5 @@ void tryMovePlayer(struct Game *self, int deltaX, int deltaY);
 void gameOver(struct Game *self);
 
 void morrer(struct Game *self);
+
+void onColissaoEntidade(struct Game* self, struct Entidade* entidade);
