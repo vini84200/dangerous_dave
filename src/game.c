@@ -37,16 +37,10 @@ void drawMap(struct Game* self){
             case JOGADOR:   drawElement(self->body, 'D',  4);  break;
             case TROFEU:   drawElement(self->body, 'T',  6);  break;
             case AMETISTA:   drawElement(self->body, '!',  4);  break;
-            case BRANCO:
-                break;
-            case SAFIRA:
-                break;
-            case RUBI:
-                break;
-            case ANEL:
-                break;
-            case COROA:
-                break;
+            case SAFIRA: drawElement(self->body, '@',  4);  break;
+            case RUBI: drawElement(self->body, '#',  4);  break;
+            case ANEL: drawElement(self->body, '$',  4);  break;
+            case COROA: drawElement(self->body, '%',  4);  break;
         }
     }
     wrefresh(self->body);
