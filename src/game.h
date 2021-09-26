@@ -49,3 +49,9 @@ void enter_game(struct Game* self);
 void leave_game(struct Game* self);
 
 bool handleInputGame(struct Game *self, int ch);
+
+bool canMove(struct Game *self, int deltaX, int deltaY);
+
+void movePlayer(struct Game *self, int deltaX, int deltaY);
+
+void tryMovePlayer(struct Game *self, int deltaX, int deltaY);

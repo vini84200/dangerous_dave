@@ -169,22 +169,50 @@ void leave_game(struct Game *self) {
 
 bool handleInputGame(struct Game *self, int ch) {
     if (ch == KEY_UP) {
-        self->jogador->pos.y--;
+        tryMovePlayer(self, 0, -1);
         return TRUE;
     }
     if (ch == KEY_DOWN) {
-        self->jogador->pos.y++;
+        tryMovePlayer(self, 0, 1);
         return TRUE;
     }
     if (ch == KEY_LEFT) {
-        self->jogador->pos.x++;
+        tryMovePlayer(self, -1, 0);
         return TRUE;
     }
     if (ch == KEY_RIGHT) {
-        self->jogador->pos.x++;
+        tryMovePlayer(self, 1, 0);
         return TRUE;
     }
     return FALSE;
+}
+
+bool canMove(struct Game *self, int deltaX, int deltaY) {
+    struct Vec2Int initial_pos = self->jogador->pos;
+    struct Vec2Int final_pos = { initial_pos.x+deltaX, initial_pos.y+deltaY};
+    // Verifica paredes
+    char mapPosition = self->mapa[final_pos.y][final_pos.x];
+    if (mapPosition == 'X') return false;
+
+    // Verifica sai do mapa
+
+    if (final_pos.x < 0
+            || final_pos.x > TAMANHOX
+            || final_pos.y < 0
+            || final_pos.y > TAMANHOY
+            )
+        return false;
+
+    return true;
+}
+
+void movePlayer(struct Game *self, int deltaX, int deltaY) {
+    self->jogador->pos.x += deltaX;
+    self->jogador->pos.y += deltaY;
+}
+
+void tryMovePlayer(struct Game *self, int deltaX, int deltaY) {
+    if (canMove(self, deltaX, deltaY)) movePlayer(self, deltaX, deltaY);
 }
 
 
