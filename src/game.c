@@ -13,6 +13,7 @@ void drawMap(struct Game* self){
     int posy = 4;
     int posx = 1;
     wmove(self->body, 4, 0);
+    werase(self->body);
 	for (int i = 0; i < TAMANHOY; i++) {
 		for (int r = 0; r < TAMANHOX; r++) {
 
@@ -29,7 +30,7 @@ void drawMap(struct Game* self){
     }
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         if (self->entidades[i].tipo == BRANCO) break;
-        wmove(self->body, posy + self->entidades[i].pos.x, posx + self->entidades[i].pos.y);
+        wmove(self->body, posy + self->entidades[i].pos.y, posx + self->entidades[i].pos.x);
         switch(self->entidades[i].tipo) {
             case JETPACK:   drawElement(self->body, 'H',  3);  break;
             case JOGADOR:   drawElement(self->body, 'D',  4);  break;
@@ -90,7 +91,7 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     g->vidas = 3;
     g->pontuacao = 1000;
     g->head = NULL;
-    g->head = NULL;
+    g->body = NULL;
     g->jogador = NULL;
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         g->entidades[i].tipo = BRANCO;
@@ -116,13 +117,14 @@ void loadFase(struct Game *self, int novaFase) {
     for(int i = 0; i < TAMANHOY; i++){
         for (int j = 0; j < TAMANHOX; j++) {
             int ch = fgetc(myFile);
+            if(ch == EOF) break;
             if (ch == ' ' || ch == '\n') continue;
+
             if (ch == 'X' || ch == 'P' || ch == 'O' || ch == 'A' || ch == 'F') {
                 self->mapa[i][j] = (char) ch;
                 continue;
             }
-            self->entidades[entidadesIndex];
-            self->entidades[entidadesIndex] = newEntidadeFromCh(i, j, (char) ch);
+            self->entidades[entidadesIndex] = newEntidadeFromCh(j, i, (char) ch);
             if(self->entidades[entidadesIndex].tipo == JOGADOR) {
                 self->jogador = &self->entidades[entidadesIndex];
             }
@@ -141,7 +143,6 @@ void loadFase(struct Game *self, int novaFase) {
 
 void enter_game(struct Game *self) {
     start_color();
-
     if(has_colors() == FALSE){
         errorClose("Seu terminal não suporta cores.");
     }
@@ -164,6 +165,26 @@ void leave_game(struct Game *self) {
     self->body = NULL;
 
     use_default_colors();
+}
+
+bool handleInputGame(struct Game *self, int ch) {
+    if (ch == KEY_UP) {
+        self->jogador->pos.y--;
+        return TRUE;
+    }
+    if (ch == KEY_DOWN) {
+        self->jogador->pos.y++;
+        return TRUE;
+    }
+    if (ch == KEY_LEFT) {
+        self->jogador->pos.x++;
+        return TRUE;
+    }
+    if (ch == KEY_RIGHT) {
+        self->jogador->pos.x++;
+        return TRUE;
+    }
+    return FALSE;
 }
 
 

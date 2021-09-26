@@ -110,6 +110,7 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
             if(handleInputMenu(self->menu, ch)) return TRUE;
             break;
         case IN_GAME:
+            if(handleInputGame(self->game, ch)) return TRUE;
             break;
         case ENCERRAMENTO:
             break;

@@ -48,4 +48,4 @@ void enter_game(struct Game* self);
 // Remove exibição da tela
 void leave_game(struct Game* self);
 
-
+bool handleInputGame(struct Game *self, int ch);
