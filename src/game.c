@@ -129,6 +129,9 @@ void loadFase(struct Game *self, int novaFase) {
                 self->jogador = &self->entidades[entidadesIndex];
             }
             entidadesIndex++;
+            if(entidadesIndex >= MAX_ENTIDADES) {
+                errorClose("MAPA INVÁLIDO! Excede o número máximo de entidades em cena!");
+            }
         }
     }
 
@@ -209,6 +212,10 @@ bool canMove(struct Game *self, int deltaX, int deltaY) {
 void movePlayer(struct Game *self, int deltaX, int deltaY) {
     self->jogador->pos.x += deltaX;
     self->jogador->pos.y += deltaY;
+
+    // TODO Colisão com AGUA e FOGO
+
+    // TODO Colisão com outros objetos
 }
 
 void tryMovePlayer(struct Game *self, int deltaX, int deltaY) {
