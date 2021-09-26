@@ -18,6 +18,7 @@ struct Game {
     char mapa[TAMANHOY][TAMANHOX];
     struct Entidade entidades[MAX_ENTIDADES];
     struct Entidade* jogador;
+    struct Vec2Int entrada;
 };
 
 struct Game* newGame(struct AppStateMachine *novaASM);
@@ -55,3 +56,8 @@ bool canMove(struct Game *self, int deltaX, int deltaY);
 void movePlayer(struct Game *self, int deltaX, int deltaY);
 
 void tryMovePlayer(struct Game *self, int deltaX, int deltaY);
+
+// TODO GameOver
+void gameOver(struct Game *self);
+
+void morrer(struct Game *self);

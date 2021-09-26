@@ -119,8 +119,12 @@ void loadFase(struct Game *self, int novaFase) {
             int ch = fgetc(myFile);
             if(ch == EOF) break;
             if (ch == ' ' || ch == '\n') continue;
-
+            if(ch=='O') {
+                self->entrada.x = j;
+                self->entrada.y = i;
+            }
             if (ch == 'X' || ch == 'P' || ch == 'O' || ch == 'A' || ch == 'F') {
+
                 self->mapa[i][j] = (char) ch;
                 continue;
             }
@@ -172,6 +176,7 @@ void leave_game(struct Game *self) {
 
 bool handleInputGame(struct Game *self, int ch) {
     if (ch == KEY_UP) {
+        // TODO Trocar por pular quando não esta com jetpack
         tryMovePlayer(self, 0, -1);
         return TRUE;
     }
@@ -214,12 +219,30 @@ void movePlayer(struct Game *self, int deltaX, int deltaY) {
     self->jogador->pos.y += deltaY;
 
     // TODO Colisão com AGUA e FOGO
-
+    char mapPosition = self->mapa[self->jogador->pos.y][self->jogador->pos.x];
+    if (mapPosition == 'F' || mapPosition == 'A') {
+        morrer(self);
+    }
     // TODO Colisão com outros objetos
 }
 
 void tryMovePlayer(struct Game *self, int deltaX, int deltaY) {
     if (canMove(self, deltaX, deltaY)) movePlayer(self, deltaX, deltaY);
+}
+
+void morrer(struct Game *self) {
+    if (self->vidas <= 0) {
+        gameOver(self);
+    }
+    self->vidas--;
+    self->pontuacao -= 500;
+    self->jogador->pos.x =  self->entrada.x;
+    self->jogador->pos.y =  self->entrada.y;
+}
+
+void gameOver(struct Game *self) {
+    // TODO GAME OVER
+    errorClose("GAME OVER! Não implementado");
 }
 
 
