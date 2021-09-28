@@ -19,6 +19,8 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     g->jetpackMode = false;
     g->queda_parcial = 0.f;
     g->ASM = novaASM;
+    g->animation_frame = 0;
+    g->animation_frame_parcial = 0.f;
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         g->entidades[i].tipo = BRANCO;
     }

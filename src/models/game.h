@@ -21,15 +21,17 @@ struct Game {
     bool temTrofeu;
     bool temJetpack;
     bool jetpackMode;
-    WINDOW * head;
-    WINDOW * body;
+    WINDOW *head;
+    WINDOW *body;
 
     char mapa[TAMANHOY][TAMANHOX];
     struct Entidade entidades[MAX_ENTIDADES];
-    struct Entidade* jogador;
+    struct Entidade *jogador;
     struct Vec2Int entrada;
 
     float queda_parcial;
+    float animation_frame_parcial;
+    int animation_frame;
 };
 
 struct Game* newGame(struct AppStateMachine *novaASM);

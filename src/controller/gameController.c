@@ -191,9 +191,9 @@ void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
 
 void update(struct Game *self, double deltaT) {
     // Graviade
-    if(!isApoiado(self)) {
+    if (!isApoiado(self)) {
         self->queda_parcial += TAXA_QUEDA * (float) deltaT;
-        if(self->queda_parcial >= 1) {
+        if (self->queda_parcial >= 1) {
             self->queda_parcial = 0;
             movePlayer(self, 0, 1);
         }
@@ -201,6 +201,14 @@ void update(struct Game *self, double deltaT) {
         self->queda_parcial = 0.f;
     }
 
+    self->animation_frame_parcial += (float) deltaT;
+    if (self->animation_frame_parcial >= DURACAO_FRAME) {
+        self->animation_frame_parcial -= DURACAO_FRAME;
+        self->animation_frame += 1;
+        if (self->animation_frame >= QUANT_FRAMES) {
+            self->animation_frame = 0;
+        }
+    }
 }
 
 bool isApoiado(struct Game *self)  {
