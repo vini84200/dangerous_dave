@@ -66,12 +66,20 @@ void escreverTitulo(struct _win_st *w, int y) {
 void escreverOpcao(struct _win_st *w, char *text, bool selecionado, int y) {
     if (selecionado) {
 
-        char *selectedLine[30] = {'\0'};
-        strcat(selectedLine, "*<");
-        strcat(selectedLine, text);
-        strcat(selectedLine, ">* ");
         wattron(w, A_UNDERLINE | A_BOLD);
-        escreverCentralizado(w, selectedLine, y);
+        int x = getmaxx(stdscr);
+        int centro = x / 2;
+        wmove(w, y, (centro - strlen(text) / 2) - 2);
+        waddch(w, ACS_DIAMOND);
+        waddch(w, ' ');
+
+        wmove(w, y, (centro + strlen(text) / 2) + 0);
+        waddch(w, ' ');
+        waddch(w, ' ');
+        waddch(w, ACS_DIAMOND);
+        wmove(w, y, centro - strlen(text) / 2);
+        wprintw(w, text);
+
         wattroff(w, A_UNDERLINE | A_BOLD);
     } else {
         escreverCentralizado(w, text, y);
