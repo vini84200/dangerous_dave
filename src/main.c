@@ -49,7 +49,6 @@ int main() {
         }
 
         ASM_update(ASM, (double) dns/(1e9));
-        printw("%ld %lf" ,dns, ds);
 
         ASM_draw(ASM);
         // Atualiza a tela para exibir as alterações
