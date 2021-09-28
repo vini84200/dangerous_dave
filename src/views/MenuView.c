@@ -8,7 +8,8 @@ void drawMenu(struct Menu *self) {
     werase(self->janela);
 
     int maxY = getmaxy(self->janela);
-    wborder(self->janela, '|', '|', '-', '-', '+', '+', '+', '+');
+    wborder(self->janela, ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_ULCORNER, ACS_URCORNER, ACS_LLCORNER,
+            ACS_LRCORNER);
 
     if (maxY <= MIN_Y) errorClose("Tela muito pequena!");
     int centroY = maxY / 2;

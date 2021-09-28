@@ -4,6 +4,7 @@
 #include "../models/Menu.h"
 #include "../utils/erros.h"
 #include "../controller/AppStateMachine.h"
+#include "../controller/menuController.h"
 
 #define MENU_HEIGHT 9
 #define MIN_Y MENU_HEIGHT + 0
