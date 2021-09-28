@@ -7,10 +7,10 @@ set(SOURCE_FILES
         src/main.c
         src/utils/erros.c
         src/controller/AppStateMachine.c
-        src/Menu.c
+        src/models/Menu.c
         src/controller/gameController.c
         src/models/Entidade.c
-        src/views/gameView.c src/views/gameView.h src/models/game.c src/models/game.h)
+        src/views/gameView.c src/views/gameView.h src/models/game.c src/models/game.h src/controller/menuController.c src/controller/menuController.h src/views/MenuView.c src/views/MenuView.h)
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 configure_file(config.h.in config.h)

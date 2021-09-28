@@ -3,7 +3,7 @@
 #include "../utils/erros.h"
 #include "../files.h"
 #include "../models/Entidade.h"
-#include "../Menu.h"
+#include "../models/Menu.h"
 #include "../models/game.h"
 
 // Taxa de queda em blocos por segundo

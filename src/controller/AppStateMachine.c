@@ -3,6 +3,8 @@
 #include "gameController.h"
 #include "../views/gameView.h"
 #include "../models/game.h"
+#include "../views/MenuView.h"
+#include "menuController.h"
 
 void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
     if (self->estado == newState) {
