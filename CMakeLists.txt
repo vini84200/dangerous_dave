@@ -8,9 +8,9 @@ set(SOURCE_FILES
         src/erros.c
         src/AppStateMachine.c
         src/Menu.c
-        src/game.c
+        src/controller/game.c
         src/models/Entidade.c
-        )
+        src/views/gameView.c src/views/gameView.h)
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 configure_file(config.h.in config.h)
