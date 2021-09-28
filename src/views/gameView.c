@@ -116,8 +116,10 @@ bool handleInputGame(struct Game *self, int ch) {
     }
 
     if(ch == ' ') {
-        // FIXME Checa jetpack
-        self->jetpackMode = !self->jetpackMode;
+        // TODO Realizar verificação em outro lugar
+        if(self->temJetpack) {
+            self->jetpackMode = !self->jetpackMode;
+        }
         return TRUE;
     }
     return FALSE;
