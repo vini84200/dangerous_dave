@@ -8,6 +8,7 @@
 
 // Taxa de queda em blocos por segundo
 #define TAXA_QUEDA 1.3f
+#define QUANT_FASES 2
 
 // Carrega a fase e atualiza informações pertinentes
 void loadFase(struct Game* self, int novaFase);
@@ -36,3 +37,5 @@ void onColissaoEntidade(struct Game* self, struct Entidade* entidade);
 bool isApoiado(struct Game* self);
 
 void saltar(struct Game* self);
+
+void venceFase(struct Game* self);

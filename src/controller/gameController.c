@@ -3,7 +3,9 @@
 
 void loadFase(struct Game *self, int novaFase) {
     FILE *myFile;
-    myFile = fopen(PASTA_NIVEIS "/fase_01.txt", "r");
+    char filePath[300] = {'\0'};
+    snprintf(filePath, 300, PASTA_NIVEIS "/fase_%02d.txt", novaFase);
+    myFile = fopen(filePath, "r");
 
 
     if (myFile == NULL){
@@ -12,6 +14,23 @@ void loadFase(struct Game *self, int novaFase) {
 
     int entidadesIndex = 0;
 
+    // Limpar mapa
+    for (int x = 0; x < TAMANHOX; ++x) {
+        for (int y = 0; y < TAMANHOY; ++y) {
+            self->mapa[y][x] = ' ';
+        }
+    }
+    // Limpa entidades
+    for (int i = 0; i < MAX_ENTIDADES; ++i) {
+        self->entidades[i].tipo = BRANCO;
+    }
+
+    // Tira estados especiais
+    self->temJetpack = false;
+    self->temTrofeu = false;
+    self->jetpackMode = false;
+
+    //Carrega mapa
     for(int i = 0; i < TAMANHOY; i++){
         for (int j = 0; j < TAMANHOX; j++) {
             int ch = fgetc(myFile);
@@ -99,10 +118,17 @@ void movePlayer(struct Game *self, int deltaX, int deltaY) {
     self->jogador->pos.y += deltaY;
 
     char mapPosition = self->mapa[self->jogador->pos.y][self->jogador->pos.x];
+    // Checa por fogo e agua, se for o jogador morre
     if (mapPosition == 'F' || mapPosition == 'A') {
         morrer(self);
     }
 
+    // Checa por vitória
+    if(mapPosition == 'P' && self->temTrofeu) {
+        venceFase(self);
+    }
+
+    // Checa colisões com entidades
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         if (self->entidades[i].tipo == BRANCO) break;
         if (self->entidades[i].tipo == JOGADOR) continue;
@@ -197,6 +223,16 @@ void saltar(struct Game *self) {
         }
     }
 
+}
+
+void venceFase(struct Game *self) {
+    if (self->fase == QUANT_FASES) {
+        //TODO Vitoria final
+        ASM_mudarEstado(self->ASM, ENCERRAMENTO);
+        return;
+    }
+    // Avança de fase
+    loadFase(self, self->fase+1);
 }
 
 
