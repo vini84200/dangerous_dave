@@ -38,13 +38,15 @@ int main() {
 
         ASM_handleInput(ASM, new_ch);
 
+        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
 
-        timespec_get(&ts, TIME_UTC);
-        ASM_update(ASM, (double)(ts.tv_nsec - last_ts.tv_nsec) / (1e9)); // 1E9 = 1 * 10^9
+        ASM_update(ASM, (double)(ts.tv_nsec - last_ts.tv_nsec) / (1e7));
+
 
         ASM_draw(ASM);
         // Atualiza a tela para exibir as alterações
         refresh();
+
         // Espera alguns microssegundos
         usleep(1e6/FPS_LIMIT);
         last_ts = ts;

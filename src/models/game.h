@@ -5,8 +5,14 @@
 #ifndef DDAVE_GAME_H
 #define DDAVE_GAME_H
 
+#include "../core.h"
+#include "../erros.h"
+#include "../files.h"
+#include "../models/Entidade.h"
+
 #define TAMANHOY 30
 #define TAMANHOX 120
+
 struct Game {
     int fase;
     struct AppStateMachine* ASM;
@@ -23,15 +29,13 @@ struct Game {
     struct Entidade* jogador;
     struct Vec2Int entrada;
 
+    float queda_parcial;
 };
 
 struct Game* newGame(struct AppStateMachine *novaASM);
 
 void destroyGame(struct Game* self);
 
-#include "../core.h"
-#include "../erros.h"
-#include "../files.h"
-#include "../models/Entidade.h"
+
 
 #endif //DDAVE_GAME_H

@@ -17,6 +17,7 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     g->temTrofeu = false;
     g->temJetpack = false;
     g->jetpackMode = false;
+    g->queda_parcial = 0.f;
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         g->entidades[i].tipo = BRANCO;
     }

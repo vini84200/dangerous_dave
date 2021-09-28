@@ -6,6 +6,8 @@
 #include "../Menu.h"
 #include "../models/game.h"
 
+// Taxa de queda em blocos por segundo
+#define TAXA_QUEDA 1.3f
 
 // Carrega a fase e atualiza informações pertinentes
 void loadFase(struct Game* self, int novaFase);
@@ -15,6 +17,8 @@ void enter_game(struct Game* self);
 
 // Remove exibição da tela
 void leave_game(struct Game* self);
+
+void update(struct Game* self, double deltaT);
 
 bool canMove(struct Game *self, int deltaX, int deltaY);
 
@@ -28,3 +32,5 @@ void gameOver(struct Game *self);
 void morrer(struct Game *self);
 
 void onColissaoEntidade(struct Game* self, struct Entidade* entidade);
+
+bool isApoiado(struct Game* self);

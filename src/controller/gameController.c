@@ -163,5 +163,22 @@ void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
     }
 }
 
+void update(struct Game *self, double deltaT) {
+    // Graviade
+    if(!isApoiado(self)) {
+        self->queda_parcial += TAXA_QUEDA * (float) deltaT;
+        if(self->queda_parcial >= 1) {
+            self->queda_parcial = 0;
+            movePlayer(self, 0, 1);
+        }
+    } else {
+        self->queda_parcial = 0.f;
+    }
+
+}
+
+bool isApoiado(struct Game *self)  {
+    return !canMove(self, 0, 1) || self->jetpackMode;
+}
 
 

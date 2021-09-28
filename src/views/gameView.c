@@ -74,7 +74,7 @@ void header(struct Game* self){
         if(self->temTrofeu) {
             wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t TROFEU", self->pontuacao, self->fase, self->vidas);
         }else {
-            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d", self->pontuacao, self->fase, self->vidas);
+            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d QP: %f", self->pontuacao, self->fase, self->vidas, self->queda_parcial);
         }
 
     }
@@ -107,6 +107,12 @@ bool handleInputGame(struct Game *self, int ch) {
     }
     if (ch == KEY_RIGHT) {
         tryMovePlayer(self, 1, 0);
+        return TRUE;
+    }
+
+    if(ch == ' ') {
+        // FIXME Checa jetpack
+        self->jetpackMode = !self->jetpackMode;
         return TRUE;
     }
     return FALSE;

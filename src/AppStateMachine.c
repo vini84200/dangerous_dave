@@ -127,6 +127,7 @@ void ASM_update(struct AppStateMachine *self, double delta) {
             updateMenu(self->menu, delta);
             break;
         case IN_GAME:
+            update(self->game, delta);
             break;
         case ENCERRAMENTO:
             break;
