@@ -49,6 +49,7 @@ void loadFase(struct Game *self, int novaFase) {
 }
 
 void enter_game(struct Game *self) {
+    if(self->fase == 0) loadFase(self, 1);
     start_color();
     if(has_colors() == FALSE){
         errorClose("Seu terminal não suporta cores.");

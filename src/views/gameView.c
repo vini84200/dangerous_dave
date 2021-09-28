@@ -82,11 +82,6 @@ void header(struct Game* self){
 }
 
 void game(struct Game *self){
-
-    if (self->fase == 0) {
-        loadFase(self, 1);
-    }
-
     //Cabecalho
     header(self);
 
