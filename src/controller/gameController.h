@@ -34,3 +34,5 @@ void morrer(struct Game *self);
 void onColissaoEntidade(struct Game* self, struct Entidade* entidade);
 
 bool isApoiado(struct Game* self);
+
+void saltar(struct Game* self);

@@ -93,8 +93,13 @@ void game(struct Game *self){
 
 bool handleInputGame(struct Game *self, int ch) {
     if (ch == KEY_UP) {
-        // TODO Trocar por pular quando não esta com jetpack
-        tryMovePlayer(self, 0, -1);
+        // TODO Mover condição para o controller
+        if(self->jetpackMode) {
+            tryMovePlayer(self, 0, -1);
+        }
+        else {
+            saltar(self);
+        }
         return TRUE;
     }
     if (ch == KEY_DOWN) {

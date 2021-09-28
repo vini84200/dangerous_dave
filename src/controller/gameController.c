@@ -181,4 +181,22 @@ bool isApoiado(struct Game *self)  {
     return !canMove(self, 0, 1) || self->jetpackMode;
 }
 
+void saltar(struct Game *self) {
+    if (!isApoiado(self)) return;
+
+    if(canMove(self, 0,-1)) {
+        if (canMove(self, 0, -2)) {
+            if(canMove(self, 0, -3)) {
+                movePlayer(self, 0, -3);
+            } else {
+                movePlayer(self, 0, -2);
+            }
+        }
+        else {
+            movePlayer(self, 0, -1);
+        }
+    }
+
+}
+
 

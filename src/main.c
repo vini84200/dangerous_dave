@@ -38,10 +38,18 @@ int main() {
 
         ASM_handleInput(ASM, new_ch);
 
-        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
+        clock_gettime(CLOCK_MONOTONIC, &ts);
 
-        ASM_update(ASM, (double)(ts.tv_nsec - last_ts.tv_nsec) / (1e7));
+        double ds = difftime(ts.tv_sec, last_ts.tv_sec);
+        long dns = ts.tv_nsec - last_ts.tv_nsec;
 
+        if (dns < 0) {
+            ds -= 1;
+            dns += 1000000000;
+        }
+
+        ASM_update(ASM, (double) dns/(1e9));
+        printw("%ld %lf" ,dns, ds);
 
         ASM_draw(ASM);
         // Atualiza a tela para exibir as alterações
