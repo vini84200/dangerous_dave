@@ -1,6 +1,6 @@
 #pragma once
 #include "core.h"
-#include "AppStateMachine.h"
+#include "controller/AppStateMachine.h"
 
 #define MENU_HEIGHT 9
 #define MIN_Y MENU_HEIGHT + 0

@@ -1,6 +1,7 @@
 #pragma once
-#include "core.h"
-#include "Menu.h"
+
+#include "../core.h"
+#include "../Menu.h"
 
 typedef enum {
     INICIANDO,

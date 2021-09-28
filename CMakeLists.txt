@@ -5,8 +5,8 @@ set(CMAKE_C_STANDARD 11)
 
 set(SOURCE_FILES
         src/main.c
-        src/erros.c
-        src/AppStateMachine.c
+        src/utils/erros.c
+        src/controller/AppStateMachine.c
         src/Menu.c
         src/controller/gameController.c
         src/models/Entidade.c

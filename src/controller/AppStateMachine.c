@@ -1,8 +1,8 @@
 #include "AppStateMachine.h"
-#include "erros.h"
-#include "controller/gameController.h"
-#include "views/gameView.h"
-#include "models/game.h"
+#include "../utils/erros.h"
+#include "gameController.h"
+#include "../views/gameView.h"
+#include "../models/game.h"
 
 void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
     if (self->estado == newState) {

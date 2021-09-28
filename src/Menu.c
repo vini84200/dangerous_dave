@@ -1,6 +1,6 @@
 #include "Menu.h"
-#include "AppStateMachine.h"
-#include "erros.h"
+#include "controller/AppStateMachine.h"
+#include "utils/erros.h"
 
 struct Menu *newMenu(struct AppStateMachine *novaASM) {
     struct Menu *menu = malloc(sizeof(struct Menu));

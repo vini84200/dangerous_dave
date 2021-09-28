@@ -3,8 +3,8 @@
 #include <time.h>
 
 #include "core.h"
-#include "erros.h"
-#include "AppStateMachine.h"
+#include "utils/erros.h"
+#include "controller/AppStateMachine.h"
 
 
 int main();

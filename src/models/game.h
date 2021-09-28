@@ -6,7 +6,7 @@
 #define DDAVE_GAME_H
 
 #include "../core.h"
-#include "../erros.h"
+#include "../utils/erros.h"
 #include "../files.h"
 #include "../models/Entidade.h"
 
