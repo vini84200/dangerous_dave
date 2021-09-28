@@ -2,10 +2,7 @@
 // Created by vini84200 on 27/09/2021.
 //
 
-#include <curses.h>
 #include "gameView.h"
-#include "../models/Entidade.h"
-#include "../controller/game.h"
 
 void drawElement(struct _win_st * window, char elemento, int color){
     wattron(window,COLOR_PAIR(color));

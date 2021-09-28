@@ -1,27 +1,5 @@
-#include "game.h"
-#include "../Menu.h"
+#include "gameController.h"
 
-
-struct Game *newGame(struct AppStateMachine *novaASM) {
-    struct Game* g = malloc(sizeof(struct Game));
-    g->fase = 0;
-    g->vidas = 3;
-    g->pontuacao = 1000;
-    g->head = NULL;
-    g->body = NULL;
-    g->jogador = NULL;
-    g->temTrofeu = false;
-    g->temJetpack = false;
-    g->jetpackMode = false;
-    for (int i = 0; i < MAX_ENTIDADES; ++i) {
-        g->entidades[i].tipo = BRANCO;
-    }
-    return g;
-}
-
-void destroyGame(struct Game *self) {
-    free(self);
-}
 
 void loadFase(struct Game *self, int novaFase) {
     FILE *myFile;

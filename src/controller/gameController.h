@@ -3,31 +3,9 @@
 #include "../erros.h"
 #include "../files.h"
 #include "../models/Entidade.h"
+#include "../Menu.h"
+#include "../models/game.h"
 
-#define TAMANHOY 30
-#define TAMANHOX 120
-
-struct Game {
-    int fase;
-    struct AppStateMachine* ASM;
-    int pontuacao;
-    int vidas;
-    bool temTrofeu;
-    bool temJetpack;
-    bool jetpackMode;
-    WINDOW * head;
-    WINDOW * body;
-
-    char mapa[TAMANHOY][TAMANHOX];
-    struct Entidade entidades[MAX_ENTIDADES];
-    struct Entidade* jogador;
-    struct Vec2Int entrada;
-
-};
-
-struct Game* newGame(struct AppStateMachine *novaASM);
-
-void destroyGame(struct Game* self);
 
 // Carrega a fase e atualiza informações pertinentes
 void loadFase(struct Game* self, int novaFase);

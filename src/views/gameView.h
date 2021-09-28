@@ -4,8 +4,11 @@
 
 #ifndef DDAVE_GAMEVIEW_H
 #define DDAVE_GAMEVIEW_H
-#include "../controller/game.h"
 
+#include "../core.h"
+#include "../models/Entidade.h"
+
+#include "../controller/gameController.h"
 
 // Desenha um elemento do mapa à tela
 void drawElement(struct _win_st * window, char elemento, int color);
