@@ -192,6 +192,7 @@ void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
 void update(struct Game *self, double deltaT) {
     // Graviade
     if (!isApoiado(self)) {
+        
         self->queda_parcial += TAXA_QUEDA * (float) deltaT;
         if (self->queda_parcial >= 1) {
             self->queda_parcial = 0;
