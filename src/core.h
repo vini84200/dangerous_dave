@@ -13,3 +13,17 @@
 
 #define FPS_LIMIT 170
 #define MAX_ENTIDADES 180
+
+
+#ifdef __linux__
+
+#define LINUX
+#define SAVE_FOLDER "~/.local/share/DDave/"
+
+#endif
+
+#ifdef __MINGW32__
+#define WINDOWS
+#define SAVE_FOLDER "%appdata%/DDave"
+
+#endif

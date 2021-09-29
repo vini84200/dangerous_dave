@@ -120,7 +120,8 @@ void header(struct Game *self) {
         if(self->temTrofeu) {
             wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t TROFEU", self->pontuacao, self->fase, self->vidas);
         }else {
-            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d QP: %f", self->pontuacao, self->fase, self->vidas, self->queda_parcial);
+            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d ", self->pontuacao, self->fase,
+                    self->vidas);
         }
 
     }

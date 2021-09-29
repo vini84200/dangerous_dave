@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.16)
 
-project (DDave VERSION 0.1)
+project(DDave
+        VERSION 0.1
+        LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 
 set(SOURCE_FILES
@@ -17,6 +19,7 @@ configure_file(config.h.in config.h)
 
 add_executable (DDave ${SOURCE_FILES})
 
+# Verifica e Inclui o Ncurses
 set(CURSES_NEED_NCURSES TRUE)
 find_package(Curses REQUIRED)
 if (CURSES_FOUND AND CURSES_HAVE_NCURSES_H)
