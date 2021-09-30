@@ -13,21 +13,38 @@
 #define TAMANHOY 30
 #define TAMANHOX 120
 
+enum ResultadoFinal {
+    NAO_ENCERRADO,
+    VITORIA,
+    DERROTA
+};
+
 struct Game {
     int fase;
-    struct AppStateMachine* ASM;
-    int pontuacao;
-    int vidas;
-    bool temTrofeu;
-    bool temJetpack;
-    bool jetpackMode;
+    struct AppStateMachine *ASM;
+
+    // Janelas
+
     WINDOW *head;
     WINDOW *body;
+
+    // Dados do mapa
 
     char mapa[TAMANHOY][TAMANHOX];
     struct Entidade entidades[MAX_ENTIDADES];
     struct Entidade *jogador;
     struct Vec2Int entrada;
+
+    // Dados do jogo
+    bool temTrofeu;
+    bool temJetpack;
+    bool jetpackMode;
+    int pontuacao;
+    int vidas;
+
+    enum ResultadoFinal resultado;
+
+    // Dados que dependem do tempo
 
     float queda_parcial;
     float animation_frame_parcial;

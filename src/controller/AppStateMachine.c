@@ -5,6 +5,7 @@
 #include "../models/game.h"
 #include "../views/MenuView.h"
 #include "menuController.h"
+#include "../views/encerramentoView.h"
 
 void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
     if (self->estado == newState) {
@@ -45,6 +46,7 @@ struct AppStateMachine* ASM_newASM() {
     novaASM->executar = true;
     novaASM->menu  = newMenu(novaASM);
     novaASM->game = newGame(novaASM);
+    novaASM->encerramento = newEncerramento(novaASM);
     clear();
     return novaASM;
 }
@@ -68,8 +70,7 @@ void ASM_draw(struct AppStateMachine *self) {
 
     if (self->estado == ENCERRAMENTO) {
         // Exibe tela de enceramento
-        move(0,0);
-        printw("ENCERRAMENTO");
+        viewEncerramento(self->encerramento);
         return;
     }
 }
@@ -141,7 +142,8 @@ void destroyASM(struct AppStateMachine* self) {
     self->menu = NULL;
     destroyGame(self->game);
     self->game = NULL;
-
+    destroyEncerramento(self->encerramento);
+    self->encerramento = NULL;
     free(self);
 }
 

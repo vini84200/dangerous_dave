@@ -16,7 +16,10 @@ set(SOURCE_FILES
         src/models/game.c
         src/controller/menuController.c
         src/views/MenuView.c
-        src/models/ranking.c)
+        src/models/ranking.c
+        src/views/encerramentoView.c
+        src/models/Encerramento.c
+        )
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 configure_file(config.h.in config.h)

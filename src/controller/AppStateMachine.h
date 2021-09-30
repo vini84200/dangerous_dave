@@ -2,6 +2,7 @@
 
 #include "../core.h"
 #include "../models/Menu.h"
+#include "../models/Encerramento.h"
 
 typedef enum {
     INICIANDO,
@@ -13,8 +14,9 @@ typedef enum {
 struct AppStateMachine {
     AppState estado;
     bool executar;
-    struct Menu* menu;
-    struct Game* game;
+    struct Menu *menu;
+    struct Game *game;
+    struct Encerramento *encerramento;
 };
 
 // Atualiza o estado de uma ASM

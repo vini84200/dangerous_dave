@@ -83,6 +83,13 @@ void enter_game(struct Game *self) {
     }
     wrefresh(self->head);
     wrefresh(self->body);
+    // Verifica que o jogo não pode ser continuado após ser encerrado.
+    if (self->resultado == VITORIA) {
+        venceFase(self);
+    }
+    if (self->resultado == DERROTA) {
+        gameOver(self);
+    }
 }
 
 void leave_game(struct Game *self) {
@@ -156,8 +163,8 @@ void morrer(struct Game *self) {
 }
 
 void gameOver(struct Game *self) {
-    // TODO GAME OVER
-    errorClose("GAME OVER! Não implementado");
+    self->resultado = DERROTA;
+    ASM_mudarEstado(self->ASM, ENCERRAMENTO);
 }
 
 void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
@@ -236,7 +243,7 @@ void saltar(struct Game *self) {
 
 void venceFase(struct Game *self) {
     if (self->fase == QUANT_FASES) {
-        //TODO Vitoria final
+        self->resultado = VITORIA;
         ASM_mudarEstado(self->ASM, ENCERRAMENTO);
         return;
     }

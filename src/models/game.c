@@ -21,6 +21,7 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     g->ASM = novaASM;
     g->animation_frame = 0;
     g->animation_frame_parcial = 0.f;
+    g->resultado = NAO_ENCERRADO;
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         g->entidades[i].tipo = BRANCO;
     }
@@ -28,5 +29,6 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
 }
 
 void destroyGame(struct Game *self) {
+
     free(self);
 }
