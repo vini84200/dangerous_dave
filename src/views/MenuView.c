@@ -46,6 +46,7 @@ void drawMenu(struct Menu *self) {
 
         for (int i = 0; i < 5; i++) {
             fgets(ranking, 30, myFile);
+            ranking[strlen(ranking) - 1] = '\0';
 
             if (i < maxY - 2) {
                 escreverCentralizado(self->janela, ranking, (i + 6));
