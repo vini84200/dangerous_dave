@@ -84,6 +84,7 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
 
     // Se a tecla Esc for pressionado, encerra a execução.
     if(ch == KEY_ESC) {
+        //TODO: Pedir confirmação aqui
         self->executar = false;
         return TRUE;
     }
