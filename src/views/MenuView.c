@@ -113,6 +113,7 @@ void escreverOpcao(struct _win_st *w, char *text, bool selecionado, int y) {
 }
 
 bool handleInputMenu(struct Menu *self, int ch) {
+    // FIXME: Novo sistema pts
     struct points joao = {"Joao", 850};
     struct points melissa = {"Melissa", 750};
     struct points alisson = {"Alisson", 650};

@@ -10,7 +10,7 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     struct Game* g = malloc(sizeof(struct Game));
     g->fase = 0;
     g->vidas = 3;
-    g->pontuacao = 1000;
+    g->pontuacao = 0;
     g->head = NULL;
     g->body = NULL;
     g->jogador = NULL;
