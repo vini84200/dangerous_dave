@@ -36,6 +36,23 @@ void drawMenu(struct Menu *self) {
 
         escreverCentralizado(self->janela, "RANKING de melhores jogadores", 4);
 
+        FILE *myFile;
+        myFile = fopen(".../src/models/ranking.txt", "r");
+
+        char ranking[30] = {"\0"};
+
+        for(int i = 0; i < 5; i++){
+            fgets(ranking, 30, myFile);
+
+            if(i < maxY - 2){
+                escreverCentralizado(self->janela, ranking, (i + 2));
+            }
+        }
+
+        fclose(myFile);
+
+        myFile = NULL;
+
         escreverCentralizado(self->janela, "(Pressione ENTER para sair)", maxY - 2);
     }
 
