@@ -139,35 +139,46 @@ void game(struct Game *self){
 }
 
 bool handleInputGame(struct Game *self, int ch) {
-    if (ch == KEY_UP) {
-        // TODO Mover condição para o controller
-        if(self->jetpackMode) {
-            tryMovePlayer(self, 0, -1);
-        }
-        else {
-            saltar(self);
-        }
-        return TRUE;
-    }
-    if (ch == KEY_DOWN) {
-        tryMovePlayer(self, 0, 1);
-        return TRUE;
-    }
-    if (ch == KEY_LEFT) {
-        tryMovePlayer(self, -1, 0);
-        return TRUE;
-    }
-    if (ch == KEY_RIGHT) {
-        tryMovePlayer(self, 1, 0);
-        return TRUE;
-    }
+    switch (ch) {
+        case KEY_UP:
+            // TODO Mover condição para o controller
+            if (self->jetpackMode) {
+                tryMovePlayer(self, 0, -1);
+            } else {
+                saltar(self);
+            }
+            break;
 
-    if(ch == ' ') {
-        // TODO Realizar verificação em outro lugar
-        if(self->temJetpack) {
-            self->jetpackMode = !self->jetpackMode;
-        }
-        return TRUE;
+        case KEY_DOWN:
+            tryMovePlayer(self, 0, 1);
+            break;
+
+        case KEY_LEFT:
+            tryMovePlayer(self, -1, 0);
+            break;
+
+        case KEY_RIGHT:
+            tryMovePlayer(self, 1, 0);
+            break;
+
+        case ' ':
+            // TODO Realizar verificação em outro lugar
+            if (self->temJetpack) {
+                self->jetpackMode = !self->jetpackMode;
+            }
+            break;
+        case KEY_ESC:
+            //TODO pausa o jogo
+            //TODO pede confirmação
+            //TODO sai do jogo
+            break;
+        case 'n':
+            //TODO pausa o jogo
+            //TODO pede confirmação
+            //TODO reinicia o jogo
+            break;
+        default:
+            return FALSE;
     }
-    return FALSE;
+    return TRUE;
 }

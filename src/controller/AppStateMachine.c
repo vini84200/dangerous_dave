@@ -78,20 +78,30 @@ void ASM_draw(struct AppStateMachine *self) {
 bool ASM_handleInput(struct AppStateMachine *self, int ch) {
     // TODO(vini84200) Usar um switch aqui.
 
-    if ( ch == ERR ) {
+    if (ch == ERR) {
         return TRUE;
     }
 
+    switch (self->estado) {
+        case MENU:
+            if (handleInputMenu(self->menu, ch)) return TRUE;
+            break;
+        case IN_GAME:
+            if (handleInputGame(self->game, ch)) return TRUE;
+            break;
+        case ENCERRAMENTO:
+            break;
+    }
+
     // Se a tecla Esc for pressionado, encerra a execução.
-    if(ch == KEY_ESC) {
-        //TODO: Pedir confirmação aqui
+    if (ch == KEY_ESC) {
         self->executar = false;
         return TRUE;
     }
 
 
     // Teste da ASM
-    if(ch== KEY_F(1)) {
+    if (ch == KEY_F(1)) {
         ASM_mudarEstado(self, MENU);
         return TRUE;
     }
@@ -111,16 +121,6 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
         return TRUE;
     }
 
-    switch (self->estado) {
-        case MENU:
-            if(handleInputMenu(self->menu, ch)) return TRUE;
-            break;
-        case IN_GAME:
-            if(handleInputGame(self->game, ch)) return TRUE;
-            break;
-        case ENCERRAMENTO:
-            break;
-    }
 
     return FALSE;
 }

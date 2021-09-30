@@ -20,3 +20,14 @@ void viewEncerramento(struct Encerramento *self) {
     printw("Pontuação final: %04d", self->ASM->game->pontuacao);
     //TODO Adiciona rank aqui
 }
+
+bool handleInputEncerramento(struct Encerramento *self, int ch) {
+    switch (ch) {
+        case KEY_ESC:
+            ASM_mudarEstado(self->ASM, MENU);
+            break;
+        default:
+            return FALSE;
+    }
+    return TRUE;
+}
