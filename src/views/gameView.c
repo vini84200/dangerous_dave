@@ -73,7 +73,7 @@ void drawMap(struct Game* self){
                 break;
         }
     }
-    wrefresh(self->body);
+    wnoutrefresh(self->body);
 }
 
 
@@ -125,10 +125,10 @@ void header(struct Game *self) {
         }
 
     }
-    wrefresh(self->head);
+    wnoutrefresh(self->head);
 }
 
-void game(struct Game *self){
+void game(struct Game *self) {
     //Cabecalho
     header(self);
 
@@ -136,6 +136,11 @@ void game(struct Game *self){
 
     drawMap(self);
 
+    if (self->aviso != SemAviso) {
+        drawAviso(self);
+    }
+
+    doupdate();
 }
 
 bool handleInputGame(struct Game *self, int ch) {
@@ -168,17 +173,84 @@ bool handleInputGame(struct Game *self, int ch) {
             }
             break;
         case KEY_ESC:
-            //TODO pausa o jogo
-            //TODO pede confirmação
-            //TODO sai do jogo
+            if (self->aviso != SemAviso) {
+                fechaAviso(self);
+                break;
+            }
+            // Sai do jogo
+            self->pausado = true;
+            self->aviso = ConfirmaSair;
             break;
         case 'n':
-            //TODO pausa o jogo
-            //TODO pede confirmação
-            //TODO reinicia o jogo
+            self->pausado = true;
+            self->aviso = ConfirmaNovoJogo;
             break;
+        case '\n':
+            if (self->aviso != SemAviso) {
+                confirmaAviso(self);
+                return true;
+            }
+            return false;
         default:
             return FALSE;
     }
     return TRUE;
 }
+
+#define AVISO_WINDOW_HEIGHT 7
+#define AVISO_WINDOW_LENGTH 50
+
+void drawAviso(struct Game *self) {
+    if (self->avisoWindow == NULL) {
+        self->avisoWindow = newwin(AVISO_WINDOW_HEIGHT, AVISO_WINDOW_LENGTH,
+                                   (getmaxy(stdscr) - AVISO_WINDOW_HEIGHT) / 2,
+                                   (getmaxx(stdscr) - AVISO_WINDOW_LENGTH) / 2);
+
+    }
+    werase(self->avisoWindow);
+    wborder(self->avisoWindow, ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_ULCORNER, ACS_URCORNER, ACS_LLCORNER,
+            ACS_LRCORNER);
+
+    if (self->aviso == ConfirmaNovoJogo) {
+        wmove(self->avisoWindow, 1, 2);
+        wprintw(self->avisoWindow, "Recomeçar o jogo?");
+        wmove(self->avisoWindow, 3, 2);
+        wprintw(self->avisoWindow, "[ENTER] Confirmar");
+        wmove(self->avisoWindow, 4, 2);
+        wprintw(self->avisoWindow, "[ESC] Voltar");
+    }
+
+    if (self->aviso == ConfirmaSair) {
+        wmove(self->avisoWindow, 1, 2);
+        wprintw(self->avisoWindow, "Sair do jogo?");
+        wmove(self->avisoWindow, 3, 2);
+        wprintw(self->avisoWindow, "[ENTER] Confirmar");
+        wmove(self->avisoWindow, 4, 2);
+        wprintw(self->avisoWindow, "[ESC] Voltar");
+    }
+
+    wnoutrefresh(self->avisoWindow);
+}
+
+void confirmaAviso(struct Game *self) {
+    if (self->aviso == ConfirmaSair) {
+        self->ASM->executar = false;
+
+    }
+    if (self->aviso == ConfirmaNovoJogo) {
+        // TODO: Novo Jogo
+    }
+
+    fechaAviso(self);
+}
+
+void fechaAviso(struct Game *self) {
+    self->aviso = SemAviso;
+    self->pausado = false;
+    werase(self->avisoWindow);
+    wborder(self->avisoWindow, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+    wnoutrefresh(self->avisoWindow);
+    delwin(self->avisoWindow);
+    self->avisoWindow = NULL;
+}
+

@@ -36,12 +36,18 @@ void drawMap(struct Game *self);
 void init_color_pairs(struct Game *);
 
 // Escreve na tela o header com as informações do jogo.
-void header(struct Game* self);
+void header(struct Game *self);
 
 // Funcão principal, exibe coisas na tela, e faz updates.
-void game(struct Game* self);
+void game(struct Game *self);
 
 
 bool handleInputGame(struct Game *self, int ch);
+
+void drawAviso(struct Game *self);
+
+void confirmaAviso(struct Game *self);
+
+void fechaAviso(struct Game *self);
 
 #endif //DDAVE_GAMEVIEW_H

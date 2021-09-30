@@ -18,6 +18,11 @@ enum ResultadoFinal {
     VITORIA,
     DERROTA
 };
+enum TiposAvisos {
+    SemAviso,
+    ConfirmaNovoJogo,
+    ConfirmaSair
+};
 
 struct Game {
     int fase;
@@ -28,6 +33,9 @@ struct Game {
     WINDOW *head;
     WINDOW *body;
 
+    enum TiposAvisos aviso;
+    WINDOW *avisoWindow;
+
     // Dados do mapa
 
     char mapa[TAMANHOY][TAMANHOX];
@@ -36,6 +44,8 @@ struct Game {
     struct Vec2Int entrada;
 
     // Dados do jogo
+    bool pausado;
+
     bool temTrofeu;
     bool temJetpack;
     bool jetpackMode;

@@ -81,6 +81,7 @@ void enter_game(struct Game *self) {
     if (self->body == NULL) {
         self->body = newwin(30, 120, 4, 0);
     }
+
     wrefresh(self->head);
     wrefresh(self->body);
     // Verifica que o jogo não pode ser continuado após ser encerrado.
@@ -102,6 +103,7 @@ void leave_game(struct Game *self) {
 }
 
 bool canMove(struct Game *self, int deltaX, int deltaY) {
+    if (self->pausado) return false;
     struct Vec2Int initial_pos = self->jogador->pos;
     struct Vec2Int final_pos = { initial_pos.x+deltaX, initial_pos.y+deltaY};
     // Verifica paredes
@@ -197,17 +199,20 @@ void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
 }
 
 void update(struct Game *self, double deltaT) {
-    // Graviade
-    if (!isApoiado(self)) {
-        
-        self->queda_parcial += TAXA_QUEDA * (float) deltaT;
-        if (self->queda_parcial >= 1) {
-            self->queda_parcial = 0;
-            movePlayer(self, 0, 1);
+    if (!self->pausado) {
+        // Graviade
+        if (!isApoiado(self)) {
+
+            self->queda_parcial += TAXA_QUEDA * (float) deltaT;
+            if (self->queda_parcial >= 1) {
+                self->queda_parcial = 0;
+                movePlayer(self, 0, 1);
+            }
+        } else {
+            self->queda_parcial = 0.f;
         }
-    } else {
-        self->queda_parcial = 0.f;
     }
+
 
     self->animation_frame_parcial += (float) deltaT;
     if (self->animation_frame_parcial >= DURACAO_FRAME) {

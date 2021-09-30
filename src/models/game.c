@@ -8,6 +8,7 @@
 
 struct Game *newGame(struct AppStateMachine *novaASM) {
     struct Game* g = malloc(sizeof(struct Game));
+    // Valores padrões
     g->fase = 0;
     g->vidas = 3;
     g->pontuacao = 0;
@@ -21,6 +22,9 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     g->ASM = novaASM;
     g->animation_frame = 0;
     g->animation_frame_parcial = 0.f;
+    g->pausado = false;
+    g->avisoWindow = NULL;
+    g->aviso = SemAviso;
     g->resultado = NAO_ENCERRADO;
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         g->entidades[i].tipo = BRANCO;

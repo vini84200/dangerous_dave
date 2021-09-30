@@ -90,6 +90,7 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
             if (handleInputGame(self->game, ch)) return TRUE;
             break;
         case ENCERRAMENTO:
+            if (handleInputEncerramento(self->encerramento, ch)) return TRUE;
             break;
     }
 
