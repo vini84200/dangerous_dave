@@ -59,3 +59,4 @@ cmake-build-*
 build
 .vscode
 src/config.h
+src/models/ranking.txt
