@@ -63,10 +63,10 @@ void saveRank(struct ranking *self) {
 
     FILE *pontos;
     char *path = malloc(300);
-    snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
 
 
 #ifdef LINUX
+    snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
     char *cmd = malloc(300);
     snprintf(cmd, 300, "mkdir -p "SAVE_FOLDER, getenv("HOME"));
     system(cmd);
