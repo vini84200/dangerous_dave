@@ -4,6 +4,8 @@
 
 #include "MenuView.h"
 
+#include "../models/ranking.h"
+
 void drawMenu(struct Menu *self) {
     werase(self->janela);
 
@@ -35,23 +37,29 @@ void drawMenu(struct Menu *self) {
         escreverTitulo(self->janela, 1);
 
         escreverCentralizado(self->janela, "RANKING de melhores jogadores", 4);
-
+        char *path = malloc(300);
+        snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
         FILE *myFile;
-        myFile = fopen(".../src/models/ranking.txt", "r");
+        myFile = fopen(path, "r");
 
-        char ranking[30] = {"\0"};
+        char *ranking = malloc(30);
 
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             fgets(ranking, 30, myFile);
 
-            if(i < maxY - 2){
-                escreverCentralizado(self->janela, ranking, (i + 2));
+            if (i < maxY - 2) {
+                escreverCentralizado(self->janela, ranking, (i + 6));
             }
         }
 
         fclose(myFile);
 
         myFile = NULL;
+        free(ranking);
+        ranking = NULL;
+
+        free(path);
+        path = NULL;
 
         escreverCentralizado(self->janela, "(Pressione ENTER para sair)", maxY - 2);
     }
@@ -104,6 +112,14 @@ void escreverOpcao(struct _win_st *w, char *text, bool selecionado, int y) {
 }
 
 bool handleInputMenu(struct Menu *self, int ch) {
+    struct points joao = {"Joao", 850};
+    struct points melissa = {"Melissa", 750};
+    struct points alisson = {"Alisson", 650};
+    struct points peter = {"Peter", 550};
+    struct points pedro = {"Pedro", 450};
+    struct points clayton = {"Clayton", 1000};
+    struct points bro = {"Bro", 700};
+    struct ranking __rank = {&joao, &melissa, &alisson, &peter, &pedro};
     if (self->telaAberta == T_INICIAL) {
 
         switch (ch) {
@@ -123,7 +139,10 @@ bool handleInputMenu(struct Menu *self, int ch) {
                         // Começa o jogo:
                         break;
                     case CARREGAR:
-                        // COM
+
+
+                        saveRank(&__rank);
+
                         break;
                     case RANK:
                         abrirTela(self, T_RANK);

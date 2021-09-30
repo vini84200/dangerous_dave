@@ -12,7 +12,8 @@ set(SOURCE_FILES
         src/models/Menu.c
         src/controller/gameController.c
         src/models/Entidade.c
-        src/views/gameView.c src/views/gameView.h src/models/game.c src/models/game.h src/controller/menuController.c src/controller/menuController.h src/views/MenuView.c src/views/MenuView.h)
+        src/views/gameView.c src/views/gameView.h src/models/game.c src/models/game.h src/controller/menuController.c src/controller/menuController.h src/views/MenuView.c src/views/MenuView.h
+        src/models/ranking.c)
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 configure_file(config.h.in config.h)

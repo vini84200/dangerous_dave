@@ -1,5 +1,7 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
+#include "../core.h"
 
 struct points{
     char name[30];
@@ -15,7 +17,6 @@ struct ranking{
     struct points *fifth;
 };
 
-struct ranking rank;
 
 void pontuacaoSuficiente(struct points *self);
 

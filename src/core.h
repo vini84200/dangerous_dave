@@ -18,7 +18,7 @@
 #ifdef __linux__
 
 #define LINUX
-#define SAVE_FOLDER "~/.local/share/DDave/"
+#define SAVE_FOLDER "%s/.local/share/DDave/"
 
 #endif
 

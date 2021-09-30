@@ -1,28 +1,23 @@
 #include "ranking.h"
 
-struct points joao = {"Joao", 850};  
-struct points melissa = {"Melissa", 750}; 
-struct points alisson = {"Alisson", 650}; 
-struct points peter = {"Peter", 550}; 
-struct points pedro = {"Pedro", 450}; 
-struct points clayton = {"Clayton", 1000};
-struct points bro = {"Bro", 700};
-
-struct ranking *p = &rank;
-
-struct points *s = &bro;
-
 void pontuacaoSuficiente(struct points *self){
+    struct points joao = {"Joao", 850};
+    struct points melissa = {"Melissa", 750};
+    struct points alisson = {"Alisson", 650};
+    struct points peter = {"Peter", 550};
+    struct points pedro = {"Pedro", 450};
+    struct points clayton = {"Clayton", 1000};
+    struct points bro = {"Bro", 700};
     struct ranking rank = {&joao, &melissa, &alisson, &peter, &pedro};
 
     struct points *primeiro = rank.first;
-    struct points *segundo =  rank.second;
+    struct points *segundo = rank.second;
     struct points *terceiro = rank.third;
-    struct points *quarto =   rank.fourth;
-    struct points *quinto =   rank.fifth;
+    struct points *quarto = rank.fourth;
+    struct points *quinto = rank.fifth;
 
     //FIXME
-    if(self->points > primeiro->points){
+    if (self->points > primeiro->points) {
         rank.fifth =  quarto;
         rank.fourth = terceiro;
         rank.third =  segundo;
@@ -59,7 +54,7 @@ void pontuacaoSuficiente(struct points *self){
 }
 
 
-void saveRank(struct ranking *self){
+void saveRank(struct ranking *self) {
     struct points *primeiro = self->first;
     struct points *segundo = self->second;
     struct points *terceiro = self->third;
@@ -67,17 +62,35 @@ void saveRank(struct ranking *self){
     struct points *quinto = self->fifth;
 
     FILE *pontos;
+    char *path = malloc(300);
+    snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
 
-    pontos = fopen("ranking.txt", "w");
 
-    fprintf(pontos,"%5d %s\n", primeiro->points, primeiro->name);
-    fprintf(pontos,"%5d %s\n", segundo->points, segundo->name);
-    fprintf(pontos,"%5d %s\n", terceiro->points, terceiro->name);
-    fprintf(pontos,"%5d %s\n", quarto->points, quarto->name);
-    fprintf(pontos,"%5d %s\n", quinto->points, quinto->name);
-}
+#ifdef LINUX
+    char *cmd = malloc(300);
+    snprintf(cmd, 300, "mkdir -p "SAVE_FOLDER, getenv("HOME"));
+    system(cmd);
+    snprintf(cmd, 300, "touch %s", path);
+    system(cmd);
+    free(cmd);
+    cmd = NULL;
+#else
+    //FIXME: adicionar suporte para criar pasta no windows e outros
+#error APENAS LINUX SUPORTADO por agora
+#endif
 
-int main(){
-    pontuacaoSuficiente(s);
+    pontos = fopen(path, "w");
 
+    if (pontos != NULL) {
+        fprintf(pontos, "%5d %s\n", primeiro->points, primeiro->name);
+        fprintf(pontos, "%5d %s\n", segundo->points, segundo->name);
+        fprintf(pontos, "%5d %s\n", terceiro->points, terceiro->name);
+        fprintf(pontos, "%5d %s\n", quarto->points, quarto->name);
+        fprintf(pontos, "%5d %s\n", quinto->points, quinto->name);
+
+        fclose(pontos);
+        pontos = NULL;
+    }
+    free(path);
+    path = NULL;
 }
