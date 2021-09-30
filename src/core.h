@@ -24,6 +24,6 @@
 
 #ifdef __MINGW32__
 #define WINDOWS
-#define SAVE_FOLDER "%appdata%/DDave"
+#define SAVE_FOLDER "%appdata%/DDave/"
 
 #endif
