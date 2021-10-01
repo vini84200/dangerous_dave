@@ -31,7 +31,6 @@ void movePlayer(struct Game *self, int deltaX, int deltaY);
 
 void tryMovePlayer(struct Game *self, int deltaX, int deltaY);
 
-// TODO GameOver
 void gameOver(struct Game *self);
 
 void morrer(struct Game *self);
