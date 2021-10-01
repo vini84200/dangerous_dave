@@ -1,6 +1,7 @@
 #include "gameController.h"
 
 
+
 void loadFase(struct Game *self, int novaFase) {
     FILE *myFile;
     char filePath[300] = {'\0'};
@@ -86,7 +87,7 @@ void enter_game(struct Game *self) {
     wrefresh(self->body);
     // Verifica que o jogo não pode ser continuado após ser encerrado.
     if (self->resultado == VITORIA) {
-        venceFase(self);
+        vitoria(self);
     }
     if (self->resultado == DERROTA) {
         gameOver(self);
@@ -248,18 +249,44 @@ void saltar(struct Game *self) {
 
 void venceFase(struct Game *self) {
     if (self->fase == QUANT_FASES) {
-        self->resultado = VITORIA;
-        ASM_mudarEstado(self->ASM, ENCERRAMENTO);
+        vitoria(self);
         return;
     }
     // Avança de fase
     loadFase(self, self->fase + 1);
 }
 
+void vitoria(struct Game *self) {
+    self->resultado = VITORIA;
+    ASM_mudarEstado(self->ASM, ENCERRAMENTO);
+}
+
 void zeraGame(struct Game *self) {
     self->pontuacao = 0;
     self->vidas = 3;
+    self->resultado = NAO_ENCERRADO;
     loadFase(self, 1);
+}
+
+char *getSavePath() {
+    char *path = malloc(300);
+
+
+#ifdef LINUX
+    snprintf(path, 300, SAVE_FOLDER "game_save", getenv("HOME"));
+    char *cmd = malloc(300);
+    snprintf(cmd, 300, "mkdir -p "SAVE_FOLDER, getenv("HOME"));
+    system(cmd);
+    snprintf(cmd, 300, "touch %s", path);
+    system(cmd);
+    free(cmd);
+    cmd = NULL;
+#else
+    //FIXME: adicionar suporte para criar pasta no windows e outros
+#error APENAS LINUX SUPORTADO por agora
+#endif
+
+    return path;
 }
 
 

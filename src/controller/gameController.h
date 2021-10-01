@@ -43,8 +43,18 @@ bool isApoiado(struct Game *self);
 // Jogador salta
 void saltar(struct Game *self);
 
+// O jogo termina em vitória
+void vitoria(struct Game *self);
+
 // Quando o jogoador passa uma fase
 void venceFase(struct Game *self);
 
+
 // Dado um jogo, altera suas informações para reiniciar o jogo.
 void zeraGame(struct Game *self);
+
+// SALVANDO O JOGO
+
+char *getSavePath();
+
+bool saveGame(struct Game *self);
