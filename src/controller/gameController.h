@@ -36,10 +36,15 @@ void gameOver(struct Game *self);
 
 void morrer(struct Game *self);
 
-void onColissaoEntidade(struct Game* self, struct Entidade* entidade);
+void onColissaoEntidade(struct Game *self, struct Entidade *entidade);
 
-bool isApoiado(struct Game* self);
+bool isApoiado(struct Game *self);
 
-void saltar(struct Game* self);
+// Jogador salta
+void saltar(struct Game *self);
 
-void venceFase(struct Game* self);
+// Quando o jogoador passa uma fase
+void venceFase(struct Game *self);
+
+// Dado um jogo, altera suas informações para reiniciar o jogo.
+void zeraGame(struct Game *self);

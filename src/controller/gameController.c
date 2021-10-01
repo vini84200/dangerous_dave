@@ -253,7 +253,13 @@ void venceFase(struct Game *self) {
         return;
     }
     // Avança de fase
-    loadFase(self, self->fase+1);
+    loadFase(self, self->fase + 1);
+}
+
+void zeraGame(struct Game *self) {
+    self->pontuacao = 0;
+    self->vidas = 3;
+    loadFase(self, 1);
 }
 
 

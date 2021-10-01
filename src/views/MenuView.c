@@ -4,7 +4,6 @@
 
 #include "MenuView.h"
 
-#include "../models/ranking.h"
 
 void drawMenu(struct Menu *self) {
     werase(self->janela);
@@ -136,7 +135,7 @@ bool handleInputMenu(struct Menu *self, int ch) {
             case '\n':
                 switch (self->selecionado) {
                     case NOVO_JOGO:
-                        // TODO: Reiniciar o Jogo
+                        zeraGame(self->ASM->game);
                         ASM_mudarEstado(self->ASM, IN_GAME);
                         // Começa o jogo:
                         break;

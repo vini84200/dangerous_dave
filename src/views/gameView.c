@@ -238,7 +238,7 @@ void confirmaAviso(struct Game *self) {
 
     }
     if (self->aviso == ConfirmaNovoJogo) {
-        // TODO: Novo Jogo
+        zeraGame(self);
     }
 
     fechaAviso(self);

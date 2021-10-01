@@ -5,6 +5,8 @@
 #include "../utils/erros.h"
 #include "../controller/AppStateMachine.h"
 #include "../controller/menuController.h"
+#include "../models/ranking.h"
+#include "../controller/gameController.h"
 
 #define MENU_HEIGHT 9
 #define MIN_Y MENU_HEIGHT + 0
