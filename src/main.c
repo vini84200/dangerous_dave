@@ -22,6 +22,9 @@ int main() {
     // Impede que o programa trave esperando ações
     nodelay(stdscr, TRUE);
 
+    // Remove delay ao pressionar Esc.
+    set_escdelay(0);
+
     // Limpa a tela antes de executar
     clear();
 
