@@ -19,6 +19,7 @@ set(SOURCE_FILES
         src/models/ranking.c
         src/views/encerramentoView.c
         src/models/Encerramento.c
+        src/utils/time_utils.c
         )
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 

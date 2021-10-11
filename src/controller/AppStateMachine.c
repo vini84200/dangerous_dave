@@ -7,7 +7,7 @@
 #include "menuController.h"
 #include "../views/encerramentoView.h"
 
-void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
+void mudarEstado(struct AppStateMachine *self, AppState newState) {
     if (self->estado == newState) {
         clear();
         return;
@@ -39,12 +39,12 @@ void ASM_mudarEstado(struct AppStateMachine *self, AppState newState) {
     clear();
 }
 
-struct AppStateMachine* ASM_newASM() {
+struct AppStateMachine *newASM() {
     // Aloca o espaço na memória da ASM
-    struct AppStateMachine* novaASM = malloc(sizeof (struct AppStateMachine));
+    struct AppStateMachine *novaASM = malloc(sizeof(struct AppStateMachine));
     novaASM->estado = INICIANDO;
     novaASM->executar = true;
-    novaASM->menu  = newMenu(novaASM);
+    novaASM->menu = newMenu(novaASM);
     novaASM->game = newGame(novaASM);
     novaASM->encerramento = newEncerramento(novaASM);
     clear();
@@ -53,7 +53,7 @@ struct AppStateMachine* ASM_newASM() {
 
 void ASM_draw(struct AppStateMachine *self) {
     if(self->estado == INICIANDO) {
-        ASM_mudarEstado(self, MENU);
+        mudarEstado(self, MENU);
     }
 
     if (self->estado == MENU) {
@@ -103,17 +103,17 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
 
     // Teste da ASM
     if (ch == KEY_F(1)) {
-        ASM_mudarEstado(self, MENU);
+        mudarEstado(self, MENU);
         return TRUE;
     }
 
     if(ch== KEY_F(2)) {
-        ASM_mudarEstado(self, IN_GAME);
+        mudarEstado(self, IN_GAME);
         return TRUE;
     }
 
     if(ch== KEY_F(3)) {
-        ASM_mudarEstado(self, ENCERRAMENTO);
+        mudarEstado(self, ENCERRAMENTO);
         return TRUE;
     }
 

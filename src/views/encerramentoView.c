@@ -24,7 +24,7 @@ void viewEncerramento(struct Encerramento *self) {
 bool handleInputEncerramento(struct Encerramento *self, int ch) {
     switch (ch) {
         case KEY_ESC:
-            ASM_mudarEstado(self->ASM, MENU);
+            mudarEstado(self->ASM, MENU);
             break;
         default:
             return FALSE;

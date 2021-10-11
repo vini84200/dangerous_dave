@@ -20,10 +20,10 @@ struct AppStateMachine {
 };
 
 // Atualiza o estado de uma ASM
-void ASM_mudarEstado(struct AppStateMachine *self, AppState newState);
+void mudarEstado(struct AppStateMachine *self, AppState newState);
 
 // Cria uma AppStateMachine no Menu
-struct AppStateMachine* ASM_newASM();
+struct AppStateMachine *newASM();
 
 // Recebe as teclas que são pressionadas para alterar seus estados. Retorna se a tecla foi tratada.
 bool ASM_handleInput(struct AppStateMachine *self, int ch);

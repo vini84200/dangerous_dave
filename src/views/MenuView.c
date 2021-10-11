@@ -136,7 +136,7 @@ bool handleInputMenu(struct Menu *self, int ch) {
                 switch (self->selecionado) {
                     case NOVO_JOGO:
                         zeraGame(self->ASM->game);
-                        ASM_mudarEstado(self->ASM, IN_GAME);
+                        mudarEstado(self->ASM, IN_GAME);
                         // Começa o jogo:
                         break;
                     case CARREGAR:

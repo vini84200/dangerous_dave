@@ -167,7 +167,7 @@ void morrer(struct Game *self) {
 
 void gameOver(struct Game *self) {
     self->resultado = DERROTA;
-    ASM_mudarEstado(self->ASM, ENCERRAMENTO);
+    mudarEstado(self->ASM, ENCERRAMENTO);
 }
 
 void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
@@ -258,7 +258,7 @@ void venceFase(struct Game *self) {
 
 void vitoria(struct Game *self) {
     self->resultado = VITORIA;
-    ASM_mudarEstado(self->ASM, ENCERRAMENTO);
+    mudarEstado(self->ASM, ENCERRAMENTO);
 }
 
 void zeraGame(struct Game *self) {

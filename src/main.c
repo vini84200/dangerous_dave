@@ -1,10 +1,60 @@
 #include "main.h"
+#include "utils/time_utils.h"
+
+
+void listenInput(struct AppStateMachine *maquinaEstados);
 
 int main() {
-    int ch;
-    bool executar = true;
+    struct AppStateMachine *maquinaEstados = newASM();
 
-    // Inicializa o modo NCurses
+    setup_ncurses();
+
+    struct timespec now;
+    timespec_get(&now, TIME_UTC);
+    struct timespec lastNow = now;
+
+    while (maquinaEstados->executar) {
+        executarASM(maquinaEstados, &now, &lastNow);
+    }
+
+    // Libera memória
+    destroyASM(maquinaEstados);
+    maquinaEstados = NULL;
+
+    // Encerra o NCurses
+    endwin();
+}
+
+// Executado dentro do loop
+void executarASM(struct AppStateMachine *maquinaEstados, struct timespec *now, struct timespec *lastNow) {
+    listenInput(maquinaEstados);
+
+    clock_gettime(CLOCK_MONOTONIC, now);
+
+    long deltaNanosec = calcDiffNanoseconds(now, lastNow);
+
+
+    ASM_update(maquinaEstados, (double) deltaNanosec / (1e9));
+
+
+    ASM_draw(maquinaEstados);
+
+    // Atualiza a tela para exibir as alterações
+    refresh();
+
+    // Espera alguns microssegundos
+    usleep(1e6 / FPS_LIMIT);
+
+    (*lastNow) = (*now);
+}
+
+void listenInput(struct AppStateMachine *maquinaEstados) {// Pega caracteres
+    int new_ch = getch();
+
+    ASM_handleInput(maquinaEstados, new_ch);
+}
+
+void setup_ncurses() {// Inicializa o modo NCurses
     initscr();
 
     // Desabilita o buffer de caracteres(eg. permite a leitura de caracteres sem ter que esperar o enter)
@@ -27,46 +77,4 @@ int main() {
 
     // Limpa a tela antes de executar
     clear();
-
-    struct AppStateMachine *ASM = ASM_newASM();
-
-    struct timespec ts;
-    timespec_get(&ts, TIME_UTC);
-    struct timespec last_ts = ts;
-    while (ASM->executar) {
-        move(0,0);
-
-        // Pega caracteres
-        int new_ch = getch();
-
-        ASM_handleInput(ASM, new_ch);
-
-        clock_gettime(CLOCK_MONOTONIC, &ts);
-
-        double ds = difftime(ts.tv_sec, last_ts.tv_sec);
-        long dns = ts.tv_nsec - last_ts.tv_nsec;
-
-        if (dns < 0) {
-            ds -= 1;
-            dns += 1000000000;
-        }
-
-        ASM_update(ASM, (double) dns/(1e9));
-
-        ASM_draw(ASM);
-        // Atualiza a tela para exibir as alterações
-        refresh();
-
-        // Espera alguns microssegundos
-        usleep(1e6/FPS_LIMIT);
-        last_ts = ts;
-
-    }
-
-    // Libera memória
-    destroyASM(ASM);
-    ASM = NULL;
-
-    // Encerra o NCurses
-    endwin();
 }
