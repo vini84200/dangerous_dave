@@ -5,22 +5,14 @@ project(DDave
         LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 
-set(SOURCE_FILES
-        src/main.c
-        src/utils/erros.c
-        src/controller/AppStateMachine.c
-        src/models/Menu.c
-        src/controller/gameController.c
-        src/models/Entidade.c
-        src/views/gameView.c
-        src/models/game.c
-        src/controller/menuController.c
-        src/views/MenuView.c
-        src/models/ranking.c
-        src/views/encerramentoView.c
-        src/models/Encerramento.c
-        src/utils/time_utils.c
+file(GLOB SOURCE_FILES
+        src/**.c
+        src/utils/*.c
+        src/controller/*.c
+        src/models/*.c
+        src/views/*.c
         )
+
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 configure_file(config.h.in config.h)
@@ -41,4 +33,5 @@ target_include_directories(DDave PUBLIC
         "${PROJECT_BINARY_DIR}"
         )
 
+# Copia assets para a pasta compilada
 file(COPY assets/ DESTINATION ${CMAKE_BINARY_DIR}/assets)
