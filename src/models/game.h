@@ -61,10 +61,9 @@ struct Game {
     int animation_frame;
 };
 
-struct Game* newGame(struct AppStateMachine *novaASM);
+struct Game *newGame(struct AppStateMachine *novaASM);
 
-void destroyGame(struct Game* self);
-
+void destroyGame(struct Game *self);
 
 
 #endif //DDAVE_GAME_H

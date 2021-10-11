@@ -20,12 +20,12 @@ struct Menu {
     struct AppStateMachine *ASM;
     float fps;
     enum MENU_TELA telaAberta;
-    WINDOW * janela;
+    WINDOW *janela;
 };
 
 // F. Básicas
 
 struct Menu *newMenu(struct AppStateMachine *novaASM);
 
-void destroyMenu(struct Menu*);
+void destroyMenu(struct Menu *);
 

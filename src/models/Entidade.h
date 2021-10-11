@@ -2,6 +2,7 @@
 // Created by vini84200 on 26/09/2021.
 //
 #pragma once
+
 #include "../core.h"
 #include "Vec.h"
 
@@ -27,8 +28,8 @@ struct Entidade {
 };
 
 
-
 struct Entidade newEntidadeFromCh(int x, int y, char ch);
+
 struct Entidade newEntidade(int x, int y, enum TiposEntidade tipo);
 
 void drawEntidade(struct Entidade *self);

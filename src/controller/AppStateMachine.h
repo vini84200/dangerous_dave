@@ -34,4 +34,4 @@ void ASM_draw(struct AppStateMachine *self);
 // Loop de Updates
 void ASM_update(struct AppStateMachine *self, double delta);
 
-void destroyASM(struct AppStateMachine*);
+void destroyASM(struct AppStateMachine *);

@@ -1,7 +1,6 @@
 #include "gameController.h"
 
 
-
 void loadFase(struct Game *self, int novaFase) {
     FILE *myFile;
     char filePath[300] = {'\0'};
@@ -9,7 +8,7 @@ void loadFase(struct Game *self, int novaFase) {
     myFile = fopen(filePath, "r");
 
 
-    if (myFile == NULL){
+    if (myFile == NULL) {
         errorClose("Erro lendo o arquivo!");
     }
 
@@ -32,12 +31,12 @@ void loadFase(struct Game *self, int novaFase) {
     self->jetpackMode = false;
 
     //Carrega mapa
-    for(int i = 0; i < TAMANHOY; i++){
+    for (int i = 0; i < TAMANHOY; i++) {
         for (int j = 0; j < TAMANHOX; j++) {
             int ch = fgetc(myFile);
-            if(ch == EOF) break;
+            if (ch == EOF) break;
             if (ch == ' ' || ch == '\n') continue;
-            if(ch=='O') {
+            if (ch == 'O') {
                 self->entrada.x = j;
                 self->entrada.y = i;
             }
@@ -47,11 +46,11 @@ void loadFase(struct Game *self, int novaFase) {
                 continue;
             }
             self->entidades[entidadesIndex] = newEntidadeFromCh(j, i, (char) ch);
-            if(self->entidades[entidadesIndex].tipo == JOGADOR) {
+            if (self->entidades[entidadesIndex].tipo == JOGADOR) {
                 self->jogador = &self->entidades[entidadesIndex];
             }
             entidadesIndex++;
-            if(entidadesIndex >= MAX_ENTIDADES) {
+            if (entidadesIndex >= MAX_ENTIDADES) {
                 errorClose("MAPA INVÁLIDO! Excede o número máximo de entidades em cena!");
             }
         }
@@ -69,9 +68,9 @@ void loadFase(struct Game *self, int novaFase) {
 }
 
 void enter_game(struct Game *self) {
-    if(self->fase == 0) loadFase(self, 1);
+    if (self->fase == 0) loadFase(self, 1);
     start_color();
-    if(has_colors() == FALSE){
+    if (has_colors() == FALSE) {
         errorClose("Seu terminal não suporta cores.");
     }
 
@@ -106,7 +105,7 @@ void leave_game(struct Game *self) {
 bool canMove(struct Game *self, int deltaX, int deltaY) {
     if (self->pausado) return false;
     struct Vec2Int initial_pos = self->jogador->pos;
-    struct Vec2Int final_pos = { initial_pos.x+deltaX, initial_pos.y+deltaY};
+    struct Vec2Int final_pos = {initial_pos.x + deltaX, initial_pos.y + deltaY};
     // Verifica paredes
     char mapPosition = self->mapa[final_pos.y][final_pos.x];
     if (mapPosition == 'X') return false;
@@ -114,9 +113,9 @@ bool canMove(struct Game *self, int deltaX, int deltaY) {
     // Verifica sai do mapa
 
     if (final_pos.x < 0
-            || final_pos.x > TAMANHOX
-            || final_pos.y < 0
-            || final_pos.y > TAMANHOY
+        || final_pos.x > TAMANHOX
+        || final_pos.y < 0
+        || final_pos.y > TAMANHOY
             )
         return false;
 
@@ -134,7 +133,7 @@ void movePlayer(struct Game *self, int deltaX, int deltaY) {
     }
 
     // Checa por vitória
-    if(mapPosition == 'P' && self->temTrofeu) {
+    if (mapPosition == 'P' && self->temTrofeu) {
         venceFase(self);
     }
 
@@ -143,8 +142,8 @@ void movePlayer(struct Game *self, int deltaX, int deltaY) {
         if (self->entidades[i].tipo == BRANCO) break;
         if (self->entidades[i].tipo == JOGADOR) continue;
 
-        if(self->entidades[i].pos.x == self->jogador->pos.x
-            && self->entidades[i].pos.y == self->jogador->pos.y){
+        if (self->entidades[i].pos.x == self->jogador->pos.x
+            && self->entidades[i].pos.y == self->jogador->pos.y) {
             // Colisão ocorre aqui
             onColissaoEntidade(self, &self->entidades[i]);
         }
@@ -161,8 +160,8 @@ void morrer(struct Game *self) {
     }
     self->vidas--;
     self->pontuacao -= 500;
-    self->jogador->pos.x =  self->entrada.x;
-    self->jogador->pos.y =  self->entrada.y;
+    self->jogador->pos.x = self->entrada.x;
+    self->jogador->pos.y = self->entrada.y;
 }
 
 void gameOver(struct Game *self) {
@@ -225,22 +224,21 @@ void update(struct Game *self, double deltaT) {
     }
 }
 
-bool isApoiado(struct Game *self)  {
+bool isApoiado(struct Game *self) {
     return !canMove(self, 0, 1) || self->jetpackMode;
 }
 
 void saltar(struct Game *self) {
     if (!isApoiado(self)) return;
 
-    if(canMove(self, 0,-1)) {
+    if (canMove(self, 0, -1)) {
         if (canMove(self, 0, -2)) {
-            if(canMove(self, 0, -3)) {
+            if (canMove(self, 0, -3)) {
                 movePlayer(self, 0, -3);
             } else {
                 movePlayer(self, 0, -2);
             }
-        }
-        else {
+        } else {
             movePlayer(self, 0, -1);
         }
     }

@@ -9,17 +9,17 @@ void drawElement(struct _win_st *window, int elemento, int color) {
 
 }
 
-void drawMap(struct Game* self){
+void drawMap(struct Game *self) {
     init_color_pairs(self);
     int posy = 4;
     int posx = 1;
     wmove(self->body, 4, 0);
     werase(self->body);
-	for (int i = 0; i < TAMANHOY; i++) {
-		for (int r = 0; r < TAMANHOX; r++) {
+    for (int i = 0; i < TAMANHOY; i++) {
+        for (int r = 0; r < TAMANHOX; r++) {
 
             wmove(self->body, posy + i, posx + r);
-			switch(self->mapa[i][r]) {
+            switch (self->mapa[i][r]) {
                 case 'X':
                     drawElement(self->body, ACS_CKBOARD, CP_PAREDE);
                     break;
@@ -46,7 +46,7 @@ void drawMap(struct Game* self){
         if (self->entidades[i].tipo == BRANCO) break;
         wmove(self->body, posy + self->entidades[i].pos.y, posx + self->entidades[i].pos.x);
         if (!self->entidades[i].ativo) continue;
-        switch(self->entidades[i].tipo) {
+        switch (self->entidades[i].tipo) {
             case JETPACK:
                 drawElement(self->body, 'H', CP_JETPACK);
                 break;
@@ -116,10 +116,11 @@ void header(struct Game *self) {
             wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t JETPACK", self->pontuacao,
                     self->fase, self->vidas);
         }
-    }else {
-        if(self->temTrofeu) {
-            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t TROFEU", self->pontuacao, self->fase, self->vidas);
-        }else {
+    } else {
+        if (self->temTrofeu) {
+            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t TROFEU", self->pontuacao,
+                    self->fase, self->vidas);
+        } else {
             wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d ", self->pontuacao, self->fase,
                     self->vidas);
         }

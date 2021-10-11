@@ -21,9 +21,9 @@ void loadFase(struct Game *self, int novaFase);
 void enter_game(struct Game *self);
 
 // Remove exibição da tela
-void leave_game(struct Game* self);
+void leave_game(struct Game *self);
 
-void update(struct Game* self, double deltaT);
+void update(struct Game *self, double deltaT);
 
 bool canMove(struct Game *self, int deltaX, int deltaY);
 

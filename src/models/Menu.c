@@ -10,7 +10,7 @@ struct Menu *newMenu(struct AppStateMachine *novaASM) {
     return menu;
 }
 
-void destroyMenu(struct Menu * menu) {
+void destroyMenu(struct Menu *menu) {
     free(menu);
 }
 

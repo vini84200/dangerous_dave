@@ -7,7 +7,7 @@
 #include "game.h"
 
 struct Game *newGame(struct AppStateMachine *novaASM) {
-    struct Game* g = malloc(sizeof(struct Game));
+    struct Game *g = malloc(sizeof(struct Game));
     // Valores padrões
     g->fase = 0;
     g->vidas = 3;

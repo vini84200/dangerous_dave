@@ -1,8 +1,6 @@
 #include "AppStateMachine.h"
-#include "../utils/erros.h"
 #include "gameController.h"
 #include "../views/gameView.h"
-#include "../models/game.h"
 #include "../views/MenuView.h"
 #include "menuController.h"
 #include "../views/encerramentoView.h"
@@ -52,7 +50,7 @@ struct AppStateMachine *newASM() {
 }
 
 void ASM_draw(struct AppStateMachine *self) {
-    if(self->estado == INICIANDO) {
+    if (self->estado == INICIANDO) {
         mudarEstado(self, MENU);
     }
 
@@ -63,7 +61,7 @@ void ASM_draw(struct AppStateMachine *self) {
 
     if (self->estado == IN_GAME) {
         // Exibe jogo
-        move(0,0);
+        move(0, 0);
         game(self->game);
         return;
     }
@@ -107,17 +105,17 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
         return TRUE;
     }
 
-    if(ch== KEY_F(2)) {
+    if (ch == KEY_F(2)) {
         mudarEstado(self, IN_GAME);
         return TRUE;
     }
 
-    if(ch== KEY_F(3)) {
+    if (ch == KEY_F(3)) {
         mudarEstado(self, ENCERRAMENTO);
         return TRUE;
     }
 
-    if(ch== KEY_F(5)) {
+    if (ch == KEY_F(5)) {
         clear();
         return TRUE;
     }
@@ -139,7 +137,7 @@ void ASM_update(struct AppStateMachine *self, double delta) {
     }
 }
 
-void destroyASM(struct AppStateMachine* self) {
+void destroyASM(struct AppStateMachine *self) {
     destroyMenu(self->menu);
     self->menu = NULL;
     destroyGame(self->game);
