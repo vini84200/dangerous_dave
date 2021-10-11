@@ -66,10 +66,11 @@ void drawMenu(struct Menu *self) {
 
 
 #ifdef DEBUG
-    char *txt_debug[40];
+    char txt_debug[40];
     snprintf(txt_debug, 40, "Selecionado: %d | FPS: %4.3f", self->selecionado, self->fps);
     escreverCentralizado(stdscr, txt_debug, 0);
 #endif
+
     wrefresh(self->janela);
 }
 

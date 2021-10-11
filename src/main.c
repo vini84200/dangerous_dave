@@ -43,7 +43,7 @@ void executarASM(struct AppStateMachine *maquinaEstados, struct timespec *now, s
     refresh();
 
     // Espera alguns microssegundos
-    usleep(1e6 / FPS_LIMIT);
+    usleep((unsigned int) 1e6 / FPS_LIMIT);
 
     (*lastNow) = (*now);
 }

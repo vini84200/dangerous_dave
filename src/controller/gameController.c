@@ -195,6 +195,9 @@ void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
         case COROA:
             self->pontuacao += 300;
             break;
+        case BRANCO:
+        case JOGADOR:
+            errorClose("Jogador não deve colidir com Branco ou Jogador");
     }
 }
 

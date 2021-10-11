@@ -124,7 +124,6 @@ void header(struct Game *self) {
             wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d ", self->pontuacao, self->fase,
                     self->vidas);
         }
-
     }
     wnoutrefresh(self->head);
 }

@@ -9,14 +9,14 @@
 #include "../controller/gameController.h"
 
 #define MENU_HEIGHT 9
-#define MIN_Y MENU_HEIGHT + 0
+#define MIN_Y (MENU_HEIGHT)
 
 void drawMenu(struct Menu *);
 
-void escreverCentralizado(struct _win_st *w, const char *palavra, int y);
+void escreverCentralizado(struct _win_st *window, const char *palavra, int linha);
 
-void escreverTitulo(struct _win_st *w, int y);
+void escreverTitulo(struct _win_st *window, int linha);
 
-void escreverOpcao(struct _win_st *w, char *text, bool selecionado, int y);
+void escreverOpcao(struct _win_st *window, char *text, bool selecionado, int linha);
 
 bool handleInputMenu(struct Menu *self, int ch);

@@ -10,6 +10,7 @@ void mudarEstado(struct AppStateMachine *self, AppState newState) {
         clear();
         return;
     }
+
     // Executa saida de estado
     switch (newState) {
         case IN_GAME:
@@ -19,9 +20,11 @@ void mudarEstado(struct AppStateMachine *self, AppState newState) {
             leave_menu(self->menu);
             break;
         case ENCERRAMENTO:
+        case INICIANDO:
             break;
     }
     self->estado = newState;
+
     // Executa a entrada do novo estado
     switch (newState) {
         case IN_GAME:
@@ -31,6 +34,7 @@ void mudarEstado(struct AppStateMachine *self, AppState newState) {
             enter_menu(self->menu);
             break;
         case ENCERRAMENTO:
+        case INICIANDO:
             break;
     }
     // Limpa a tela quando mudar o estado.
@@ -90,6 +94,8 @@ bool ASM_handleInput(struct AppStateMachine *self, int ch) {
         case ENCERRAMENTO:
             if (handleInputEncerramento(self->encerramento, ch)) return TRUE;
             break;
+        case INICIANDO:
+            break;
     }
 
     // Se a tecla Esc for pressionado, encerra a execução.
@@ -133,6 +139,7 @@ void ASM_update(struct AppStateMachine *self, double delta) {
             update(self->game, delta);
             break;
         case ENCERRAMENTO:
+        case INICIANDO:
             break;
     }
 }
