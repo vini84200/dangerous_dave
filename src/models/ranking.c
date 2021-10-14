@@ -111,12 +111,7 @@ int goToRank(struct points *self){//Indica se um jogador pode entrar no ranking
             fgets(pontos, 20, pontuacao);
         }
     }
-    for(int i = 0; i < 5; i++){
-        int r = charToInt(pontos[i]);
-        if(r >=0 && r <= 9){//Se o caracter for um numero...
-            lastP += r*(pow(10, (4 - i)));//A cada nova execucao do loop fazer a soma de p + r*10^(4-i);
-        }
-    }
+    lastP = atoi(pontos);
     if(userP > lastP){
         return 1; //True
     }else{
@@ -125,5 +120,3 @@ int goToRank(struct points *self){//Indica se um jogador pode entrar no ranking
     fclose(pontuacao);
     pontuacao = NULL;
 }
-
-goToRank();
