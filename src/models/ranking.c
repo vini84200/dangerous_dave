@@ -94,3 +94,36 @@ void saveRank(struct ranking *self) {
     free(path);
     path = NULL;
 }
+
+int goToRank(struct points *self){//Indica se um jogador pode entrar no ranking
+    char pontos[21] = {'0'};
+    int userP = self->points;
+    int lastP = 0;
+
+    FILE *pontuacao;
+    pontuacao = fopen("ranking.txt", "r");
+
+    for(int i = 0; i < 5; i++){
+        if(i == 4){
+            fgets(pontos, 6, pontuacao);
+        }
+        else{
+            fgets(pontos, 20, pontuacao);
+        }
+    }
+    for(int i = 0; i < 5; i++){
+        int r = charToInt(pontos[i]);
+        if(r >=0 && r <= 9){//Se o caracter for um numero...
+            lastP += r*(pow(10, (4 - i)));//A cada nova execucao do loop fazer a soma de p + r*10^(4-i);
+        }
+    }
+    if(userP > lastP){
+        return 1; //True
+    }else{
+        return 0; //False
+    }
+    fclose(pontuacao);
+    pontuacao = NULL;
+}
+
+goToRank();
