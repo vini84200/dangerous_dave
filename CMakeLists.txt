@@ -27,7 +27,7 @@ if (CURSES_FOUND AND CURSES_HAVE_NCURSES_H)
     target_link_libraries (DDave ${CURSES_LIBRARIES})
 endif()
 
-target_link_libraries(DDave ncurses tinfo)
+target_link_libraries(DDave ncurses tinfo m)
 
 target_include_directories(DDave PUBLIC
         "${PROJECT_BINARY_DIR}"
