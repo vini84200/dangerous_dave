@@ -76,7 +76,7 @@ void saveRank(struct ranking *self) {
     cmd = NULL;
 #else
     //FIXME: adicionar suporte para criar pasta no windows e outros
-#error APENAS LINUX SUPORTADO por agora
+//#error APENAS LINUX SUPORTADO por agora
 #endif
 
     pontos = fopen(path, "w");
@@ -112,9 +112,10 @@ int goToRank(struct points *self){//Indica se um jogador pode entrar no ranking
         }
     }
     for(int i = 0; i < 5; i++){
-        int r = charToInt(pontos[i]);
-        if(r >=0 && r <= 9){//Se o caracter for um numero...
-            lastP += r*(pow(10, (4 - i)));//A cada nova execucao do loop fazer a soma de p + r*10^(4-i);
+        int r = pontos[i] - '0';
+        if(r >=0 && r <= 9) {//Se o caracter for um numero...
+            //A cada nova execucao do loop fazer a soma de p + r*10^(4-i);
+            lastP += r * (pow(10, (4 - i)));
         }
     }
     if(userP > lastP){

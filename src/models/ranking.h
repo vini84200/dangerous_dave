@@ -1,15 +1,17 @@
 #pragma once
+
 #include <stdio.h>
 #include <stdlib.h>
-//#include "../core.h"
+#include <math.h>
+#include "../core.h"
 
-struct points{
+struct points {
     char name[30];
     int points;
 };
 
 
-struct ranking{ 
+struct ranking {
     struct points *first;
     struct points *second;
     struct points *third;
