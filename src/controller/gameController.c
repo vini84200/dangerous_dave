@@ -234,6 +234,7 @@ bool isApoiado(struct Game *self) {
 void saltar(struct Game *self) {
     if (!isApoiado(self)) return;
 
+    // TODO: Reescrever de forma recursiva
     if (canMove(self, 0, -1)) {
         if (canMove(self, 0, -2)) {
             if (canMove(self, 0, -3)) {
@@ -290,4 +291,43 @@ char *getSavePath() {
     return path;
 }
 
+// TPL docs:  https://troydhanson.github.io/tpl/userguide.html#format
+#define SAVE_FORMAT "iiS(ic##$(ii)iiiiiiii)S(ii$(ii))#"
 
+bool saveGame(struct Game *self) {
+
+    tpl_node *tn;
+    int v_major = DDave_VERSION_MAJOR;
+    int v_minor = DDave_VERSION_MINOR;
+    tn = tpl_map(SAVE_FORMAT, &v_major, &v_minor, self, TAMANHOY, TAMANHOX, self->entidades, MAX_ENTIDADES);
+    tpl_pack(tn, 0);
+    int res = tpl_dump(tn, TPL_FILE, getSavePath());
+    tpl_free(tn);
+    return 0;
+}
+
+bool loadGame(struct Game *self) {
+    struct AppStateMachine *appStateMachine = self->ASM;
+    tpl_node *tn;
+    int save_version_major;
+    int save_version_minor;
+    tn = tpl_map(SAVE_FORMAT, &save_version_major, &save_version_minor, self, TAMANHOY, TAMANHOX, self->entidades,
+                 MAX_ENTIDADES);
+    int loadRes = tpl_load(tn, TPL_FILE, getSavePath());
+
+    tpl_unpack(tn, 0);
+
+    tpl_free(tn);
+    if (loadRes == -1) {
+        return false;
+    }
+    self->ASM = appStateMachine;
+
+    for (int i = 0; i < MAX_ENTIDADES; ++i) {
+        if (self->entidades[i].tipo == JOGADOR) {
+            self->jogador = &self->entidades[i];
+        }
+    }
+    return true;
+
+}

@@ -13,11 +13,14 @@ file(GLOB SOURCE_FILES
         src/views/*.c
         )
 
+file(GLOB LIBRARIES
+        extern/tpl/src/tpl.c)
+
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 configure_file(config.h.in config.h)
 
-add_executable (DDave ${SOURCE_FILES})
+add_executable(DDave ${SOURCE_FILES} ${LIBRARIES})
 
 # Verifica e Inclui o Ncurses
 set(CURSES_NEED_NCURSES TRUE)
@@ -31,6 +34,9 @@ target_link_libraries(DDave ncurses tinfo m)
 
 target_include_directories(DDave PUBLIC
         "${PROJECT_BINARY_DIR}"
+        src
+        extern/tpl/src
+
         )
 
 # Copia assets para a pasta compilada

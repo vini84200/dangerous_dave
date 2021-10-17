@@ -12,3 +12,5 @@ int main();
 void setup_ncurses();
 
 void executarASM(struct AppStateMachine *maquinaEstados, struct timespec *now, struct timespec *lastNow);
+
+void listenInput(struct AppStateMachine *maquinaEstados);

@@ -6,6 +6,7 @@
 #include "../models/Entidade.h"
 #include "../models/Menu.h"
 #include "../models/game.h"
+#include "tpl.h"
 
 // Taxa de queda em blocos por segundo
 #define TAXA_QUEDA 1.3f
@@ -57,3 +58,5 @@ void zeraGame(struct Game *self);
 char *getSavePath();
 
 bool saveGame(struct Game *self);
+
+bool loadGame(struct Game *self);
