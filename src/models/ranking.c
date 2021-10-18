@@ -67,16 +67,9 @@ void saveRank(struct ranking *self) {
 
 #ifdef LINUX
     snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
-    char *cmd = malloc(300);
-    snprintf(cmd, 300, "mkdir -p "SAVE_FOLDER, getenv("HOME"));
-    system(cmd);
-    snprintf(cmd, 300, "touch %s", path);
-    system(cmd);
-    free(cmd);
-    cmd = NULL;
 #else
     //FIXME: adicionar suporte para criar pasta no windows e outros
-//#error APENAS LINUX SUPORTADO por agora
+
 #endif
 
     pontos = fopen(path, "w");

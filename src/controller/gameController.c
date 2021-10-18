@@ -272,22 +272,12 @@ void zeraGame(struct Game *self) {
 
 char *getSavePath() {
     char *path = malloc(300);
-
-
 #ifdef LINUX
     snprintf(path, 300, SAVE_FOLDER "game_save", getenv("HOME"));
-    char *cmd = malloc(300);
-    snprintf(cmd, 300, "mkdir -p "SAVE_FOLDER, getenv("HOME"));
-    system(cmd);
-    snprintf(cmd, 300, "touch %s", path);
-    system(cmd);
-    free(cmd);
-    cmd = NULL;
 #else
     //FIXME: adicionar suporte para criar pasta no windows e outros
 #error APENAS LINUX SUPORTADO por agora
 #endif
-
     return path;
 }
 
@@ -319,6 +309,11 @@ bool loadGame(struct Game *self) {
 
     tpl_free(tn);
     if (loadRes == -1) {
+        return false;
+    }
+
+    if (save_version_major != DDave_VERSION_MAJOR) {
+
         return false;
     }
     self->ASM = appStateMachine;

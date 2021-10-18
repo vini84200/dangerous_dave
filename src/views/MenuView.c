@@ -140,10 +140,15 @@ bool handleInputMenu(struct Menu *self, int ch) {
                         mudarEstado(self->ASM, IN_GAME);
                         // Começa o jogo:
                         break;
-                    case CARREGAR:
-                        if (loadGame(self->ASM->game)) {
+                    case CARREGAR: {
+                        bool carregadoComSucesso = loadGame(self->ASM->game);
+                        if (carregadoComSucesso) {
                             mudarEstado(self->ASM, IN_GAME);
+                        } else {
+                            destroyGame(self->ASM->game);
+                            self->ASM->game = newGame(self->ASM);
                         }
+                    }
                         break;
                     case RANK:
                         abrirTela(self, T_RANK);

@@ -40,4 +40,21 @@ target_include_directories(DDave PUBLIC
         )
 
 # Copia assets para a pasta compilada
-file(COPY assets/ DESTINATION ${CMAKE_BINARY_DIR}/assets)
+#file(COPY assets/ DESTINATION ${CMAKE_BINARY_DIR}/assets)
+add_custom_command(
+        TARGET DDave PRE_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets
+        ${CMAKE_BINARY_DIR}/assets)
+
+if (UNIX AND NOT APPLE)
+    set(LINUX TRUE)
+endif ()
+
+if (LINUX)
+    message(STATUS "Linux")
+    add_custom_command(
+            TARGET DDave PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E make_directory "~/.local/share/DDave/"
+    )
+endif ()
