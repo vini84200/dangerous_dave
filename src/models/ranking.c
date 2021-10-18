@@ -48,7 +48,9 @@ void saveRank(struct ranking self) {
     FILE *pontos;
     char *path = malloc(300);
 
+
     pontos = fopen("ranking.txt", "w");
+
 
     if (pontos != NULL) {
         fprintf(pontos, "%5d %s\n", primeiro.points, primeiro.name);
@@ -80,7 +82,9 @@ int goToRank(struct points self){//Indica se um jogador pode entrar no ranking
             fgets(pontos, 20, pontuacao);
         }
     }
+
     lastP = atoi(pontos);
+
     if(userP > lastP){
         return 1; //True
     }else{

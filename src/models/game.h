@@ -26,21 +26,10 @@ enum TiposAvisos {
 
 struct Game {
     int fase;
-    struct AppStateMachine *ASM;
-
-    // Janelas
-
-    WINDOW *head;
-    WINDOW *body;
-
-    enum TiposAvisos aviso;
-    WINDOW *avisoWindow;
 
     // Dados do mapa
 
     char mapa[TAMANHOY][TAMANHOX];
-    struct Entidade entidades[MAX_ENTIDADES];
-    struct Entidade *jogador;
     struct Vec2Int entrada;
 
     // Dados do jogo
@@ -53,12 +42,30 @@ struct Game {
     int vidas;
 
     enum ResultadoFinal resultado;
+    float timer;
+
+    struct Entidade entidades[MAX_ENTIDADES];
+
+    // Não serializados ou salvos
 
     // Dados que dependem do tempo
-
     float queda_parcial;
     float animation_frame_parcial;
     int animation_frame;
+
+    enum TiposAvisos aviso;
+
+    // Ponteiros, não serializados ou salvos
+
+    struct AppStateMachine *ASM;
+
+    // Janelas
+
+    WINDOW *head;
+    WINDOW *body;
+
+    struct Entidade *jogador;
+    WINDOW *avisoWindow;
 };
 
 struct Game *newGame(struct AppStateMachine *novaASM);

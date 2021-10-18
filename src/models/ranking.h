@@ -1,10 +1,12 @@
 #pragma once
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "../core.h"
+#include "../core.h"
 
-struct points{
+
+struct points {
     char name[30];
     int points;
 };

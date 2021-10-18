@@ -2,8 +2,6 @@
 #include "utils/time_utils.h"
 
 
-void listenInput(struct AppStateMachine *maquinaEstados);
-
 int main() {
     struct AppStateMachine *maquinaEstados = newASM();
 
@@ -54,7 +52,8 @@ void listenInput(struct AppStateMachine *maquinaEstados) {// Pega caracteres
     ASM_handleInput(maquinaEstados, new_ch);
 }
 
-void setup_ncurses() {// Inicializa o modo NCurses
+void setup_ncurses() {
+    // Inicializa o modo NCurses
     initscr();
 
     // Desabilita o buffer de caracteres(eg. permite a leitura de caracteres sem ter que esperar o enter)
