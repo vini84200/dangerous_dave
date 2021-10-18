@@ -1,85 +1,63 @@
 #include "ranking.h"
 
-void pontuacaoSuficiente(struct points *self){
-    struct points joao = {"Joao", 850};
-    struct points melissa = {"Melissa", 750};
-    struct points alisson = {"Alisson", 650};
-    struct points peter = {"Peter", 550};
-    struct points pedro = {"Pedro", 450};
-    struct points clayton = {"Clayton", 1000};
-    struct points bro = {"Bro", 700};
-    struct ranking rank = {&joao, &melissa, &alisson, &peter, &pedro};
+void insertIntoRank(struct points self){
 
-    struct points *primeiro = rank.first;
-    struct points *segundo = rank.second;
-    struct points *terceiro = rank.third;
-    struct points *quarto = rank.fourth;
-    struct points *quinto = rank.fifth;
+    struct ranking rank = getRanking();
 
-    //FIXME
-    if (self->points > primeiro->points) {
-        rank.fifth =  quarto;
-        rank.fourth = terceiro;
-        rank.third =  segundo;
-        rank.second = primeiro;
-        rank.first = self;
-    }
-    else if(self->points > segundo->points){
-        rank.fifth =  quarto;
-        rank.fourth = terceiro;
-        rank.third =  segundo;
-        rank.second = self;
-    }
-    else if(self->points > terceiro->points){
-        rank.fifth =  quarto;
-        rank.fourth = terceiro;
-        rank.third =  self;
-    }
-    else if(self->points > quarto->points){
-        rank.fifth =  quarto;
-        rank.fourth = self;
-    }
-    else if(self->points > quinto->points){
-        rank.fifth =  self;
-    }
+    struct points primeiro = rank.first;
+    struct points segundo =  rank.second;
+    struct points terceiro = rank.third;
+    struct points quarto =   rank.fourth;
+    struct points quinto =   rank.fifth;
 
-    struct ranking *pr = &rank;
+    struct points vetor[6] = {primeiro, segundo, terceiro, quarto, quinto, self};
+
+    if(goToRank(self) == 1){
+        int valid = 1;
+
+        while(valid != 0){
+            valid = 0;
+
+            for(int i = 0; i < 5; i++){
+                struct points a = *(vetor + i);
+                struct points b = *(vetor + (i + 1));
+
+                if(a.points < b.points){
+                    *(vetor + (i + 1)) = a;
+                    *(vetor + i) = b;
+                    valid++;
+                }
+            }
+        }
+
+        struct ranking newRank = {*(vetor + 0), *(vetor + 1), *(vetor + 2), *(vetor + 3), *(vetor + 4)};
     
-
-    saveRank(pr);
-
-
-
-
+        saveRank(newRank);
+    
+    }
 }
 
 
-void saveRank(struct ranking *self) {
-    struct points *primeiro = self->first;
-    struct points *segundo = self->second;
-    struct points *terceiro = self->third;
-    struct points *quarto = self->fourth;
-    struct points *quinto = self->fifth;
+void saveRank(struct ranking self) {
+    struct points primeiro = self.first;
+    struct points segundo =  self.second;
+    struct points terceiro = self.third;
+    struct points quarto =   self.fourth;
+    struct points quinto =   self.fifth;
 
     FILE *pontos;
     char *path = malloc(300);
 
 
-#ifdef LINUX
-    snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
-#else
-    //FIXME: adicionar suporte para criar pasta no windows e outros
+    pontos = fopen("ranking.txt", "w");
 
-#endif
-
-    pontos = fopen(path, "w");
 
     if (pontos != NULL) {
-        fprintf(pontos, "%5d %s\n", primeiro->points, primeiro->name);
-        fprintf(pontos, "%5d %s\n", segundo->points, segundo->name);
-        fprintf(pontos, "%5d %s\n", terceiro->points, terceiro->name);
-        fprintf(pontos, "%5d %s\n", quarto->points, quarto->name);
-        fprintf(pontos, "%5d %s\n", quinto->points, quinto->name);
+        fprintf(pontos, "%5d %s\n", primeiro.points, primeiro.name);
+        fprintf(pontos, "%5d %s\n", segundo.points, segundo.name);
+        fprintf(pontos, "%5d %s\n", terceiro.points, terceiro.name);
+        fprintf(pontos, "%5d %s\n", quarto.points, quarto.name);
+        fprintf(pontos, "%5d %s\n", quinto.points, quinto.name);
 
         fclose(pontos);
         pontos = NULL;
@@ -88,9 +66,9 @@ void saveRank(struct ranking *self) {
     path = NULL;
 }
 
-int goToRank(struct points *self){//Indica se um jogador pode entrar no ranking
+int goToRank(struct points self){//Indica se um jogador pode entrar no ranking
     char pontos[21] = {'0'};
-    int userP = self->points;
+    int userP = self.points;
     int lastP = 0;
 
     FILE *pontuacao;
@@ -104,13 +82,9 @@ int goToRank(struct points *self){//Indica se um jogador pode entrar no ranking
             fgets(pontos, 20, pontuacao);
         }
     }
-    for(int i = 0; i < 5; i++){
-        int r = pontos[i] - '0';
-        if(r >=0 && r <= 9) {//Se o caracter for um numero...
-            //A cada nova execucao do loop fazer a soma de p + r*10^(4-i);
-            lastP += r * (pow(10, (4 - i)));
-        }
-    }
+
+    lastP = atoi(pontos);
+
     if(userP > lastP){
         return 1; //True
     }else{
@@ -120,4 +94,59 @@ int goToRank(struct points *self){//Indica se um jogador pode entrar no ranking
     pontuacao = NULL;
 }
 
-goToRank();
+struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking com os dados do arquivo ranking.txt
+    struct ranking rank;
+
+    struct points pr;
+    struct points se;
+    struct points te;
+    struct points qua;
+    struct points qui;
+
+    FILE *pontuacao;
+    pontuacao = fopen("ranking.txt", "r");
+
+    for(int i = 0; i < 5; i++){
+        char temp[20];
+        fgets(temp, 20, pontuacao);
+        int pontos = atoi(temp);
+        char nome[20] = {' '};
+        memcpy(nome,  &temp[6], (sizeof(temp) - 8));
+        nome[strcspn(nome, "\n")] = '\0';
+
+        switch (i)        {
+        case 0: memcpy(pr.name,  &nome, 20); pr.points  = pontos; break;
+        case 1: memcpy(se.name,  &nome, 20); se.points  = pontos; break;
+        case 2: memcpy(te.name,  &nome, 20); te.points  = pontos; break;
+        case 3: memcpy(qua.name, &nome, 20); qua.points = pontos; break;
+        case 4: memcpy(qui.name, &nome, 20); qui.points = pontos; break;
+        }
+    }
+
+    rank.first =  pr;
+    rank.second = se;
+    rank.third =  te;
+    rank.fourth = qua;
+    rank.fifth =  qui;
+    
+    fclose(pontuacao);
+    pontuacao = NULL;
+
+    return rank;
+}
+
+char* getTextRanking(){
+    char *pontos = malloc(sizeof(char)*5*30);
+
+    FILE *pontuacao;
+    pontuacao = fopen("ranking.txt", "r");
+    
+    for(int i = 0; i < 5; i++){
+        fgets((pontos + (i*30)), 30, pontuacao);
+    }
+
+    fclose(pontuacao);
+    pontuacao = NULL;
+
+    return pontos;
+}
