@@ -25,6 +25,7 @@ struct Game *newGame(struct AppStateMachine *novaASM) {
     g->pausado = false;
     g->avisoWindow = NULL;
     g->aviso = SemAviso;
+    g->timer = 0.f;
     g->resultado = NAO_ENCERRADO;
     for (int i = 0; i < MAX_ENTIDADES; ++i) {
         g->entidades[i].tipo = BRANCO;

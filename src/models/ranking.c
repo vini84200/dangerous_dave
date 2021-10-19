@@ -46,9 +46,9 @@ void saveRank(struct ranking self) {
     struct points quinto =   self.fifth;
 
     FILE *pontos;
-    char *path = malloc(300);
+    char *path = getRankingPath();
 
-    pontos = fopen("ranking.txt", "w");
+    pontos = fopen(path, "w");
 
     if (pontos != NULL) {
         fprintf(pontos, "%5d %s\n", primeiro.points, primeiro.name);
@@ -145,4 +145,22 @@ char* getTextRanking(){
     pontuacao = NULL;
 
     return pontos;
+}
+
+char *getRankingPath() {
+    char *path = malloc(300);
+#ifdef LINUX
+    snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
+#else
+    //FIXME: adicionar suporte para criar pasta no windows e outros
+#error APENAS LINUX SUPORTADO por agora
+#endif
+    return path;
+}
+
+int main(){
+    struct points fulano = {"fulano", 750};
+    insertIntoRank(fulano);
+
+    return 0;
 }

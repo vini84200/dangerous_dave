@@ -191,6 +191,9 @@ bool handleInputGame(struct Game *self, int ch) {
                 return true;
             }
             return false;
+        case 's':
+            saveGame(self);
+            return true;
         default:
             return FALSE;
     }
