@@ -113,17 +113,7 @@ void escreverOpcao(struct _win_st *w, char *text, bool selecionado, int y) {
 }
 
 bool handleInputMenu(struct Menu *self, int ch) {
-    // FIXME: Novo sistema pts
-    struct points joao = {"Joao", 850};
-    struct points melissa = {"Melissa", 750};
-    struct points alisson = {"Alisson", 650};
-    struct points peter = {"Peter", 550};
-    struct points pedro = {"Pedro", 450};
-    struct points clayton = {"Clayton", 1000};
-    struct points bro = {"Bro", 700};
-    struct ranking __rank = {&joao, &melissa, &alisson, &peter, &pedro};
     if (self->telaAberta == T_INICIAL) {
-
         switch (ch) {
             case KEY_DOWN:
                 self->selecionado++;
