@@ -56,7 +56,7 @@ void saveRank(struct ranking self) {
     FILE *pontos;
     char *path = getRankingPath();
 
-    pontos = fopen("ranking.txt", "w");
+    pontos = fopen(path, "w");
 
     if (pontos != NULL) {
         fprintf(pontos, "%5d %s\n", posicoes->points, primeiro.name);
@@ -155,7 +155,10 @@ char* getTextRanking(){
     char *pontos = malloc(sizeof(char)*5*30);
 
     FILE *pontuacao;
-    pontuacao = fopen("ranking.txt", "r");
+
+    char *path = getRankingPath();
+
+    pontuacao = fopen(path, "r");
     
     for(int i = 0; i < 5; i++){
         fgets((pontos + (i*30)), 30, pontuacao);
@@ -163,6 +166,9 @@ char* getTextRanking(){
 
     fclose(pontuacao);
     pontuacao = NULL;
+
+    free(path);
+    path = NULL;
 
     return pontos;
 }
