@@ -1,3 +1,0 @@
-[submodule "extern/tpl"]
-	path = extern/tpl
-	url = https://github.com/troydhanson/tpl.git
