@@ -4,6 +4,8 @@ void insertIntoRank(struct points self){
 
     struct ranking rank = getRanking();
 
+    struct points vazio = {};
+
     struct points primeiro = rank.first;
     struct points segundo =  rank.second;
     struct points terceiro = rank.third;
@@ -45,19 +47,25 @@ void saveRank(struct ranking self) {
     struct points quarto =   self.fourth;
     struct points quinto =   self.fifth;
 
-    FILE *pontos;
-    char *path = malloc(300);
+    struct points posicoes[5] = {primeiro, segundo, terceiro, quarto, quinto};
 
+    for(int i = 0; i < 5; i++){
+        if((posicoes + i)->points == VALUE){
+            (posicoes + i)->points = 0;
+        }
+    }
+
+    FILE *pontos;
+    char *path = getRankingPath();
 
     pontos = fopen("ranking.txt", "w");
 
-
     if (pontos != NULL) {
-        fprintf(pontos, "%5d %s\n", primeiro.points, primeiro.name);
-        fprintf(pontos, "%5d %s\n", segundo.points, segundo.name);
-        fprintf(pontos, "%5d %s\n", terceiro.points, terceiro.name);
-        fprintf(pontos, "%5d %s\n", quarto.points, quarto.name);
-        fprintf(pontos, "%5d %s\n", quinto.points, quinto.name);
+        fprintf(pontos, "%5d %s\n", posicoes->points, primeiro.name);
+        fprintf(pontos, "%5d %s\n", (posicoes + 1)->points, segundo.name);
+        fprintf(pontos, "%5d %s\n", (posicoes + 2)->points, terceiro.name);
+        fprintf(pontos, "%5d %s\n", (posicoes + 3)->points, quarto.name);
+        fprintf(pontos, "%5d %s\n", (posicoes + 4)->points, quinto.name);
 
         fclose(pontos);
         pontos = NULL;
@@ -82,9 +90,7 @@ int goToRank(struct points self){//Indica se um jogador pode entrar no ranking
             fgets(pontos, 20, pontuacao);
         }
     }
-
     lastP = atoi(pontos);
-
     if(userP > lastP){
         return 1; //True
     }else{
@@ -108,18 +114,29 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
 
     for(int i = 0; i < 5; i++){
         char temp[20];
-        fgets(temp, 20, pontuacao);
-        int pontos = atoi(temp);
-        char nome[20] = {' '};
-        memcpy(nome,  &temp[6], (sizeof(temp) - 8));
-        nome[strcspn(nome, "\n")] = '\0';
+        if(fgets(temp, 20, pontuacao) != NULL){ //FIX ME
+            int pontos = atoi(temp);
+            char nome[20] = {' '};
+            memcpy(nome,  &temp[6], (sizeof(temp) - 8));
+            nome[strcspn(nome, "\n")] = '\0';
 
-        switch (i)        {
-        case 0: memcpy(pr.name,  &nome, 20); pr.points  = pontos; break;
-        case 1: memcpy(se.name,  &nome, 20); se.points  = pontos; break;
-        case 2: memcpy(te.name,  &nome, 20); te.points  = pontos; break;
-        case 3: memcpy(qua.name, &nome, 20); qua.points = pontos; break;
-        case 4: memcpy(qui.name, &nome, 20); qui.points = pontos; break;
+            switch (i)        {
+            case 0: memcpy(pr.name,  &nome, 20); pr.points  = pontos; break;
+            case 1: memcpy(se.name,  &nome, 20); se.points  = pontos; break;
+            case 2: memcpy(te.name,  &nome, 20); te.points  = pontos; break;
+            case 3: memcpy(qua.name, &nome, 20); qua.points = pontos; break;
+            case 4: memcpy(qui.name, &nome, 20); qui.points = pontos; break;
+            }
+        }else{
+            int pontos = VALUE;
+            char nome[20] = {' '};
+            switch (i)        {
+            case 0: memcpy(pr.name,  &nome, 20); pr.points  = pontos; break;
+            case 1: memcpy(se.name,  &nome, 20); se.points  = pontos; break;
+            case 2: memcpy(te.name,  &nome, 20); te.points  = pontos; break;
+            case 3: memcpy(qua.name, &nome, 20); qua.points = pontos; break;
+            case 4: memcpy(qui.name, &nome, 20); qui.points = pontos; break;
+            }
         }
     }
 
@@ -149,4 +166,39 @@ char* getTextRanking(){
     pontuacao = NULL;
 
     return pontos;
+}
+
+char *getRankingPath() {
+    char *path = malloc(300);
+#ifdef LINUX
+    snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
+#else
+    //FIXME: adicionar suporte para criar pasta no windows e outros
+//#error APENAS LINUX SUPORTADO por agora
+#endif
+    return path;
+}
+
+int numPlayers(){
+    int contagem = 0;
+
+    struct ranking players = getRanking();
+
+    struct points primeiro = players.first;
+    struct points segundo =  players.second;
+    struct points terceiro = players.third;
+    struct points quarto =   players.fourth;
+    struct points quinto =   players.fifth;
+
+    struct points lista[5] = {primeiro, segundo, terceiro, quarto, quinto};
+
+    for(int i = 0; i < 5; i++){
+
+        if((lista + i)->points != VALUE){
+            contagem++;
+
+        }
+    }
+
+    return contagem;
 }
