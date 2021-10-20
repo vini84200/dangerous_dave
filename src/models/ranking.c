@@ -4,8 +4,6 @@ void insertIntoRank(struct points self){
 
     struct ranking rank = getRanking();
 
-    struct points vazio = {};
-
     struct points primeiro = rank.first;
     struct points segundo =  rank.second;
     struct points terceiro = rank.third;
@@ -114,7 +112,8 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
 
     for(int i = 0; i < 5; i++){
         char temp[20];
-        if(fgets(temp, 20, pontuacao) != NULL){ //FIX ME
+
+        if(fgets(temp, 20, pontuacao) != NULL && strcmp(temp, "\n") != 0){ //FIX ME
             int pontos = atoi(temp);
             char nome[20] = {' '};
             memcpy(nome,  &temp[6], (sizeof(temp) - 8));
@@ -196,9 +195,7 @@ int numPlayers(){
 
         if((lista + i)->points != VALUE){
             contagem++;
-
         }
     }
-
     return contagem;
 }
