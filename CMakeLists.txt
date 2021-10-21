@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.16)
 
 project(DDave
-        VERSION 0.2
+        VERSION 1.0
         LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 
@@ -56,5 +56,13 @@ if (LINUX)
     add_custom_command(
             TARGET DDave PRE_BUILD
             COMMAND ${CMAKE_COMMAND} -E make_directory "~/.local/share/DDave/"
+    )
+endif ()
+
+if (WIN32)
+    message(STATUS "WINDOWS")
+    add_custom_command(
+            TARGET DDave PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E make_directory "%appdata%/DDave/"
     )
 endif ()

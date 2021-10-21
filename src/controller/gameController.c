@@ -274,9 +274,10 @@ char *getSavePath() {
     char *path = malloc(300);
 #ifdef LINUX
     snprintf(path, 300, SAVE_FOLDER "game_save", getenv("HOME"));
+#elif defined(WINDOWS)
+    path = SAVE_FOLDER "game_save";
 #else
-    //FIXME: adicionar suporte para criar pasta no windows e outros
-#error APENAS LINUX SUPORTADO por agora
+#error "Sistema não suportado!"
 #endif
     return path;
 }

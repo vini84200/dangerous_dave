@@ -78,7 +78,7 @@ int goToRank(struct points self){//Indica se um jogador pode entrar no ranking
     int lastP = 0;
 
     FILE *pontuacao;
-    pontuacao = fopen("ranking.txt", "r");
+    pontuacao = fopen(getRankingPath(), "r");
 
     for(int i = 0; i < 5; i++){
         if(i == 4){
@@ -108,7 +108,7 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
     struct points qui;
 
     FILE *pontuacao;
-    pontuacao = fopen("ranking.txt", "r");
+    pontuacao = fopen(getRankingPath(), "r");
 
     for(int i = 0; i < 5; i++){
         char temp[20];
@@ -177,9 +177,10 @@ char *getRankingPath() {
     char *path = malloc(300);
 #ifdef LINUX
     snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
+#elif defined(WINDOWS)
+    path = SAVE_FOLDER "ranking.txt";
 #else
-    //FIXME: adicionar suporte para criar pasta no windows e outros
-//#error APENAS LINUX SUPORTADO por agora
+#error "Sistema não suportado"
 #endif
     return path;
 }
