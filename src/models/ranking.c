@@ -58,7 +58,7 @@ void saveRank(struct ranking self) {
     FILE *pontos;
     char *path = getRankingPath();
 
-    pontos = fopen("ranking.txt", "w");
+    pontos = fopen(getRankingPath(), "w");
 
     if (pontos != NULL) {
         fprintf(pontos, "%5d %s\n", posicoes->points, primeiro.name);
@@ -80,7 +80,7 @@ int goToRank(struct points self){//Indica se um jogador pode entrar no ranking
     int lastP = 0;
 
     FILE *pontuacao;
-    pontuacao = fopen("ranking.txt", "r");
+    pontuacao = fopen(getRankingPath(), "r");
 
     for(int i = 0; i < 5; i++){
         if(i == 4){
@@ -110,7 +110,7 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
     struct points qui;
 
     FILE *pontuacao;
-    pontuacao = fopen("ranking.txt", "r");
+    pontuacao = fopen(getRankingPath(), "r");
 
     for(int i = 0; i < 5; i++){
         char temp[20];
@@ -156,7 +156,7 @@ char* getTextRanking(){
     char *pontos = malloc(sizeof(char)*5*30);
 
     FILE *pontuacao;
-    pontuacao = fopen("ranking.txt", "r");
+    pontuacao = fopen(getRankingPath(), "r");
     
     for(int i = 0; i < 5; i++){
         fgets((pontos + (i*30)), 30, pontuacao);
@@ -172,7 +172,7 @@ char *getRankingPath() {
     char *path = malloc(300);
 #ifdef LINUX
     snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
-#elifdef WINDOWS
+#elif defined(WINDOWS)
     path = SAVE_FOLDER "ranking.txt";
 #else
 #error "Sistema não suportado"

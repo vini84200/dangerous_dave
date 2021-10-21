@@ -274,7 +274,7 @@ char *getSavePath() {
     char *path = malloc(300);
 #ifdef LINUX
     snprintf(path, 300, SAVE_FOLDER "game_save", getenv("HOME"));
-#elifdef WINDOWS
+#elif defined(WINDOWS)
     path = SAVE_FOLDER "game_save";
 #else
 #error "Sistema não suportado!"
