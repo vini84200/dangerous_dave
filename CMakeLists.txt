@@ -58,3 +58,11 @@ if (LINUX)
             COMMAND ${CMAKE_COMMAND} -E make_directory "~/.local/share/DDave/"
     )
 endif ()
+
+if (WIN32)
+    message(STATUS "WINDOWS")
+    add_custom_command(
+            TARGET DDave PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E make_directory "%appdata%/DDave/"
+    )
+endif ()

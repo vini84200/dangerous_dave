@@ -172,9 +172,10 @@ char *getRankingPath() {
     char *path = malloc(300);
 #ifdef LINUX
     snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
+#elifdef WINDOWS
+    path = SAVE_FOLDER "ranking.txt";
 #else
-    //FIXME: adicionar suporte para criar pasta no windows e outros
-//#error APENAS LINUX SUPORTADO por agora
+#error "Sistema não suportado"
 #endif
     return path;
 }

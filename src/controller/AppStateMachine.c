@@ -78,7 +78,6 @@ void ASM_draw(struct AppStateMachine *self) {
 }
 
 bool ASM_handleInput(struct AppStateMachine *self, int ch) {
-    // TODO(vini84200) Usar um switch aqui.
 
     if (ch == ERR) {
         return TRUE;
