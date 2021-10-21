@@ -1,7 +1,3 @@
-//
-// Created by vini84200 on 30/09/2021.
-//
-
 #include "encerramentoView.h"
 
 void viewEncerramento(struct Encerramento *self) {
