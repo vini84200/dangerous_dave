@@ -35,7 +35,8 @@ void loadFase(struct Game *self, int novaFase) {
         for (int j = 0; j < TAMANHOX; j++) {
             int ch = fgetc(myFile);
             if (ch == EOF) break;
-            if (ch == ' ' || ch == '\n') continue;
+            if (ch == ' ') continue;
+            if (ch == '\n') break;
             if (ch == 'O') {
                 self->entrada.x = j;
                 self->entrada.y = i;
