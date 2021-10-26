@@ -204,7 +204,7 @@ void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
 
 void update(struct Game *self, double deltaT) {
     if (!self->pausado) {
-        // Graviade
+        // Gravidade
         if (!isApoiado(self)) {
 
             self->queda_parcial += TAXA_QUEDA * (float) deltaT;
@@ -235,17 +235,11 @@ bool isApoiado(struct Game *self) {
 void saltar(struct Game *self) {
     if (!isApoiado(self)) return;
 
-    // TODO: Reescrever de forma recursiva
-    if (canMove(self, 0, -1)) {
-        if (canMove(self, 0, -2)) {
-            if (canMove(self, 0, -3)) {
-                movePlayer(self, 0, -3);
-            } else {
-                movePlayer(self, 0, -2);
-            }
-        } else {
+    for (int i = 0; i < MAX_JUMP; ++i) {
+        if (canMove(self, 0, -1))
             movePlayer(self, 0, -1);
-        }
+        else
+            break;
     }
 
 }

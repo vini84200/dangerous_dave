@@ -13,6 +13,7 @@
 #define DURACAO_FRAME 0.25f
 #define QUANT_FRAMES 4
 #define QUANT_FASES 3
+#define MAX_JUMP 3
 
 
 // Carrega a fase e atualiza informações pertinentes
