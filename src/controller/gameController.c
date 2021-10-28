@@ -35,7 +35,8 @@ void loadFase(struct Game *self, int novaFase) {
         for (int j = 0; j < TAMANHOX; j++) {
             int ch = fgetc(myFile);
             if (ch == EOF) break;
-            if (ch == ' ' || ch == '\n') continue;
+            if (ch == ' ') continue;
+            if (ch == '\n') break;
             if (ch == 'O') {
                 self->entrada.x = j;
                 self->entrada.y = i;
@@ -203,7 +204,7 @@ void onColissaoEntidade(struct Game *self, struct Entidade *entidade) {
 
 void update(struct Game *self, double deltaT) {
     if (!self->pausado) {
-        // Graviade
+        // Gravidade
         if (!isApoiado(self)) {
 
             self->queda_parcial += TAXA_QUEDA * (float) deltaT;
@@ -234,17 +235,11 @@ bool isApoiado(struct Game *self) {
 void saltar(struct Game *self) {
     if (!isApoiado(self)) return;
 
-    // TODO: Reescrever de forma recursiva
-    if (canMove(self, 0, -1)) {
-        if (canMove(self, 0, -2)) {
-            if (canMove(self, 0, -3)) {
-                movePlayer(self, 0, -3);
-            } else {
-                movePlayer(self, 0, -2);
-            }
-        } else {
+    for (int i = 0; i < MAX_JUMP; ++i) {
+        if (canMove(self, 0, -1))
             movePlayer(self, 0, -1);
-        }
+        else
+            break;
     }
 
 }
