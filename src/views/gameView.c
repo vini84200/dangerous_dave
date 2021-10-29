@@ -2,6 +2,7 @@
 // Created by vini84200 on 27/09/2021.
 //
 
+#include <models/Timer.h>
 #include "gameView.h"
 
 void drawElement(struct _win_st *window, int elemento, int color) {
@@ -106,22 +107,27 @@ void init_color_pairs(struct Game *self) {
 }
 
 void header(struct Game *self) {
+    char timer[TIMER_TEXT_CHARS];
+    getTimerText(self->timer, timer);
     werase(self->head);
     wmove(self->head, 0, 3);
     if (self->temJetpack) {
         if (self->temTrofeu) {
-            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t JETPACK \t\t TROFEU",
-                    self->pontuacao, self->fase, self->vidas);
+            wprintw(self->head, "%s - \t SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t JETPACK \t\t TROFEU",
+                    timer, self->pontuacao, self->fase, self->vidas);
         } else {
-            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t JETPACK", self->pontuacao,
+            wprintw(self->head, "%s - \t SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t JETPACK", timer,
+                    self->pontuacao,
                     self->fase, self->vidas);
         }
     } else {
         if (self->temTrofeu) {
-            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t TROFEU", self->pontuacao,
+            wprintw(self->head, "%s - \t SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d \t\t TROFEU", timer,
+                    self->pontuacao,
                     self->fase, self->vidas);
         } else {
-            wprintw(self->head, "SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d ", self->pontuacao, self->fase,
+            wprintw(self->head, "%s - \t SCORE: %04d \t\t LEVEL: %01d \t\t LIFES: %01d ", timer, self->pontuacao,
+                    self->fase,
                     self->vidas);
         }
     }
