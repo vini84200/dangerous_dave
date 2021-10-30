@@ -4,8 +4,6 @@ void insertIntoRank(struct points self){
 
     struct ranking rank = getRanking();
 
-    struct points vazio = {};
-
     struct points primeiro = rank.first;
     struct points segundo =  rank.second;
     struct points terceiro = rank.third;
@@ -58,7 +56,7 @@ void saveRank(struct ranking self) {
     FILE *pontos;
     char *path = getRankingPath();
 
-    pontos = fopen(getRankingPath(), "w");
+    pontos = fopen(path, "w");
 
     if (pontos != NULL) {
         fprintf(pontos, "%5d %s\n", posicoes->points, primeiro.name);
@@ -114,7 +112,8 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
 
     for(int i = 0; i < 5; i++){
         char temp[20];
-        if(fgets(temp, 20, pontuacao) != NULL){ //FIX ME
+
+        if(fgets(temp, 20, pontuacao) != NULL && strcmp(temp, "\n") != 0){ //FIX ME
             int pontos = atoi(temp);
             char nome[20] = {' '};
             memcpy(nome,  &temp[6], (sizeof(temp) - 8));
@@ -156,7 +155,10 @@ char* getTextRanking(){
     char *pontos = malloc(sizeof(char)*5*30);
 
     FILE *pontuacao;
-    pontuacao = fopen(getRankingPath(), "r");
+
+    char *path = getRankingPath();
+
+    pontuacao = fopen(path, "r");
     
     for(int i = 0; i < 5; i++){
         fgets((pontos + (i*30)), 30, pontuacao);
@@ -164,6 +166,9 @@ char* getTextRanking(){
 
     fclose(pontuacao);
     pontuacao = NULL;
+
+    free(path);
+    path = NULL;
 
     return pontos;
 }
@@ -197,9 +202,7 @@ int numPlayers(){
 
         if((lista + i)->points != VALUE){
             contagem++;
-
         }
     }
-
     return contagem;
 }
