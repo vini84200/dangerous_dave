@@ -215,6 +215,8 @@ void update(struct Game *self, double deltaT) {
         } else {
             self->queda_parcial = 0.f;
         }
+
+        self->timer += (float) deltaT;
     }
 
 
@@ -226,6 +228,7 @@ void update(struct Game *self, double deltaT) {
             self->animation_frame = 0;
         }
     }
+
 }
 
 bool isApoiado(struct Game *self) {
