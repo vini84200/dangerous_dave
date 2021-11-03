@@ -1,2 +1,5 @@
-  300 Claudio
-  200 Thomas
+10200 Clayton Barcelos     1.234134
+10000 Julio Cesar          0.000000
+    0                      0.000000
+    0                      0.000000
+    0                      0.000000

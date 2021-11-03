@@ -10,6 +10,7 @@
 struct points {
     char name[30];
     int points;
+    float timer;
 };
 
 
