@@ -55,7 +55,7 @@ void saveRank(struct ranking self)
 
     struct points posicoes[5] = {primeiro, segundo, terceiro, quarto, quinto};
 
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++) {
         if ((posicoes + i)->points == MIN_PTS) {
             (posicoes + i)->points = 0;
         }
@@ -66,12 +66,26 @@ void saveRank(struct ranking self)
 
     pontos = fopen(path, "w");
 
-    if (pontos != NULL){
-        fprintf(pontos, "%5d %20s %8lf\n", posicoes->points, primeiro.name,      primeiro.timer);
-        fprintf(pontos, "%5d %20s %8lf\n", (posicoes + 1)->points, segundo.name, segundo.timer);
-        fprintf(pontos, "%5d %20s %8lf\n", (posicoes + 2)->points, terceiro.name, terceiro.timer);
-        fprintf(pontos, "%5d %20s %8lf\n", (posicoes + 3)->points, quarto.name,   quarto.timer);
-        fprintf(pontos, "%5d %20s %8lf\n", (posicoes + 4)->points, quinto.name,  quinto.timer);
+    char timers[TIMER_TEXT_CHARS * 5];
+    memset(timers, 0, TIMER_TEXT_CHARS * 5);
+    textSerializeTimer(primeiro.timer, timers + (TIMER_TEXT_CHARS * 0));
+    textSerializeTimer(segundo.timer, timers + (TIMER_TEXT_CHARS * 1));
+    textSerializeTimer(terceiro.timer, timers + (TIMER_TEXT_CHARS * 2));
+    textSerializeTimer(quarto.timer, timers + (TIMER_TEXT_CHARS * 3));
+    textSerializeTimer(quinto.timer, timers + (TIMER_TEXT_CHARS * 4));
+
+
+    if (pontos != NULL) {
+        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 0)->points, NOME_CHARS - 1, NOME_CHARS - 1, primeiro.name,
+                timers + (TIMER_TEXT_CHARS * 0));
+        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 1)->points, NOME_CHARS - 1, NOME_CHARS - 1, segundo.name,
+                timers + (TIMER_TEXT_CHARS * 1));
+        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 2)->points, NOME_CHARS - 1, NOME_CHARS - 1, terceiro.name,
+                timers + (TIMER_TEXT_CHARS * 2));
+        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 3)->points, NOME_CHARS - 1, NOME_CHARS - 1, quarto.name,
+                timers + (TIMER_TEXT_CHARS * 3));
+        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 4)->points, NOME_CHARS - 1, NOME_CHARS - 1, quinto.name,
+                timers + (TIMER_TEXT_CHARS * 4));
 
         fclose(pontos);
         pontos = NULL;
@@ -111,27 +125,27 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
     if(pontuacao == NULL){
         errorClose("Nao foi possivel abrir o arquivo do ranking");
     }else{
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 5; i++) {
             char temp[40];
             char nome[NOME_CHARS];
+            memset(nome, 0, NOME_CHARS);
             int pontos;
-            char timer[8];
+            char timer[TIMER_TEXT_CHARS];
+            memset(timer, 0, TIMER_TEXT_CHARS);
 
-            if (fgets(temp, 40, pontuacao) != NULL && strcmp(temp, "\n") != 0){
+            if (fgets(temp, SER_SIZE, pontuacao) != NULL && strcmp(temp, "\n") != 0) {
                 pontos = atoi(temp);
 
-                for (int j = 0; j < 35; j++) {
+                for (int j = 0; j < SER_SIZE; j++) {
                     if (j >= 6 && j <= 25) {
                         nome[(j - 6)] = temp[j];
                     }
-                    if (j == 25) {
-                        nome[j - 6] = '\0';
-                    }
-                    if (j >= 27 && j <= 35) {
+                    if (j >= 27 && j <= 27 + TIMER_TEXT_CHARS_S_0) {
                         timer[(j - 27)] = temp[j];
                     }
+                    if (temp[j] == '\n') break;
                 }
-
+                nome[20] = '\0';
                 nome[strcspn(nome, "\n")] = ' ';
 
             }
@@ -143,9 +157,9 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
 
             }
 
-            memcpy((&rank.first + i)->name, &nome, 20);
+            memcpy((&rank.first + i)->name, &nome, NOME_CHARS);
             (&rank.first + i)->points = pontos;
-            (&rank.first + i)->timer = atof(timer);
+            textDeserializeTimer(timer, &(&rank.first + i)->timer);
         }
 
         fclose(pontuacao);
@@ -156,24 +170,21 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
     
 }
 
-char *getTextRanking(){
-    char *pontos = malloc(sizeof(char) * 5 * 40);
+char *getTextRanking() {
+    char *pontos = malloc(sizeof(char) * 5 * TEXT_RANK_SIZE);
+    memset(pontos, 0, 5 * TEXT_RANK_SIZE);
+    struct ranking rank = getRanking();
 
-    FILE *pontuacao;
-
-    char *path = getRankingPath();
-
-    pontuacao = fopen(path, "r");
-
-    for (int i = 0; i < 5; i++){
-        fgets((pontos + (i * 40)), 40, pontuacao);
+    for (int i = 0; i < 5; ++i) {
+        struct points p = *(&rank.first + i);
+        if (p.timer == 0) {
+            pontos[i * TEXT_RANK_SIZE] = 0;
+        } else {
+            char time[30];
+            getTimerText(p.timer, time);
+            sprintf(pontos + i * TEXT_RANK_SIZE, "%d - %s - %s", p.points, p.name, time);
+        }
     }
-
-    fclose(pontuacao);
-    pontuacao = NULL;
-
-    free(path);
-    path = NULL;
 
     return pontos;
 }

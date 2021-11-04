@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "Timer.h"
 
 void getTimerText(float timer, char *out) {
@@ -49,7 +50,15 @@ void textSerializeTimer(float timer, char *out) {
 }
 
 void textDeserializeTimer(const char *text, float *timerOut) {
-
+    char timerText[TIMER_TEXT_CHARS];
+    strncpy(timerText, text, TIMER_TEXT_CHARS);
+    timerText[TIMER_TEXT_CHARS - 1] = 0;
+    int hours, minutes, seconds, mseconds;
+    sscanf(timerText, "PT%dH%dM%d.%dS", &hours, &minutes, &seconds, &mseconds);
+    *timerOut = (float) hours * HOUR
+                + (float) minutes * MINUTE
+                + (float) seconds * SECOND
+                + (float) mseconds * MSECOND;
 }
 
 

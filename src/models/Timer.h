@@ -4,7 +4,8 @@
 #define MSECOND SECOND/1000
 #define MINUTE 60 * SECOND
 #define HOUR 60 * MINUTE
-#define TIMER_TEXT_CHARS 15
+#define TIMER_TEXT_CHARS 16
+#define TIMER_TEXT_CHARS_S_0 15
 
 void getTimerText(float timer, char *out);
 

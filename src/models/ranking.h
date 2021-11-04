@@ -5,9 +5,13 @@
 #include <string.h>
 #include "../core.h"
 #include "../utils/erros.h"
+#include "Timer.h"
 
 #define MIN_PTS -30000
-#define NOME_CHARS 20
+#define NOME_CHARS 21
+
+#define SER_SIZE 44
+#define TEXT_RANK_SIZE 70
 
 struct points {
     char name[NOME_CHARS];

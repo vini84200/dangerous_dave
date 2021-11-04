@@ -42,7 +42,8 @@ void viewEncerramento(struct Encerramento *self) {
         printw("\nVoce esta entre os cinco melhores. \n");
     }
     char *pointer = getTextRanking();
-    printw("%s \n %s \n %s\n %s \n %s", pointer, pointer + 40, pointer + 80, pointer + 120, pointer + 160);
+    printw("%s \n %s \n %s\n %s \n %s", pointer, pointer + TEXT_RANK_SIZE, pointer + 2 * TEXT_RANK_SIZE,
+           pointer + 3 * TEXT_RANK_SIZE, pointer + 4 * TEXT_RANK_SIZE);
 }
 
 bool handleInputEncerramento(struct Encerramento *self, int ch) {

@@ -36,28 +36,14 @@ void drawMenu(struct Menu *self) {
         escreverTitulo(self->janela, 1);
 
         escreverCentralizado(self->janela, "RANKING de melhores jogadores", 4);
-        char *path = malloc(300);
-        snprintf(path, 300, SAVE_FOLDER "ranking.txt", getenv("HOME"));
-        FILE *myFile;
-        myFile = fopen(path, "r");
 
-        char ranking[40];
+        char *pointer = getTextRanking();
 
         for (int i = 0; i < 5; i++) {
-            fgets(ranking, 40, myFile);
-            ranking[strlen(ranking) - 1] = '\0';
-
             if (i < maxY - 2) {
-                escreverCentralizado(self->janela, ranking, (i + 6));
+                escreverCentralizado(self->janela, pointer + i * TEXT_RANK_SIZE, (i + 6));
             }
         }
-
-        fclose(myFile);
-
-        myFile = NULL;
-
-        free(path);
-        path = NULL;
 
         escreverCentralizado(self->janela, "(Pressione ENTER para sair)", maxY - 2);
     }
