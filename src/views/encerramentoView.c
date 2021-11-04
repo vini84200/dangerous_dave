@@ -38,7 +38,9 @@ void viewEncerramento(struct Encerramento *self) {
             insertIntoRank(aux);
             self->estado = ESTADO_FINAL;
     }
-    printw("\nVoce esta entre os cinco melhores. \n");
+    if (self->foi_pro_rank) {
+        printw("\nVoce esta entre os cinco melhores. \n");
+    }
     char *pointer = getTextRanking();
     printw("%s \n %s \n %s\n %s \n %s", pointer, pointer + 40, pointer + 80, pointer + 120, pointer + 160);
 }
@@ -52,4 +54,9 @@ bool handleInputEncerramento(struct Encerramento *self, int ch) {
             return FALSE;
     }
     return TRUE;
+}
+
+void enter_encerramento(struct Encerramento *self) {
+    self->estado = ESTADO_INICIAL;
+    self->foi_pro_rank = 0;
 }

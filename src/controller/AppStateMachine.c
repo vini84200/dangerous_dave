@@ -34,6 +34,8 @@ void mudarEstado(struct AppStateMachine *self, AppState newState) {
             enter_menu(self->menu);
             break;
         case ENCERRAMENTO:
+            enter_encerramento(self->encerramento);
+            break;
         case INICIANDO:
             break;
     }

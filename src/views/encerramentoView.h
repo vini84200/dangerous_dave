@@ -7,3 +7,5 @@
 void viewEncerramento(struct Encerramento *self);
 
 bool handleInputEncerramento(struct Encerramento *self, int ch);
+
+void enter_encerramento(struct Encerramento *self);

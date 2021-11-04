@@ -6,16 +6,17 @@
 #include "../core.h"
 #include "../utils/erros.h"
 
-#define VALUE -30000
+#define MIN_PTS -30000
+#define NOME_CHARS 20
 
 struct points {
-    char name[30];
+    char name[NOME_CHARS];
     int points;
     float timer;
 };
 
 
-struct ranking{ 
+struct ranking {
     struct points first;
     struct points second;
     struct points third;

@@ -56,7 +56,7 @@ void saveRank(struct ranking self)
     struct points posicoes[5] = {primeiro, segundo, terceiro, quarto, quinto};
 
     for (int i = 0; i < 5; i++){
-        if ((posicoes + i)->points == VALUE){
+        if ((posicoes + i)->points == MIN_PTS) {
             (posicoes + i)->points = 0;
         }
     }
@@ -81,7 +81,7 @@ void saveRank(struct ranking self)
 }
 
 int goToRank(struct points self){ //Indica se um jogador pode entrar no ranking
-    char pontos[21] = {'0'};
+    char pontos[NOME_CHARS] = {'0'};
     struct ranking ranking;
     int userP = self.points;
     int lastP = 0;
@@ -113,18 +113,21 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
     }else{
         for(int i = 0; i < 5; i++){
             char temp[40];
-            char nome[21];
+            char nome[NOME_CHARS];
             int pontos;
             char timer[8];
 
             if (fgets(temp, 40, pontuacao) != NULL && strcmp(temp, "\n") != 0){
                 pontos = atoi(temp);
 
-                for (int j = 0; j < 35; j++){
-                    if (j >= 6 && j <= 25){
+                for (int j = 0; j < 35; j++) {
+                    if (j >= 6 && j <= 25) {
                         nome[(j - 6)] = temp[j];
                     }
-                    if (j >= 27 && j <= 35){
+                    if (j == 25) {
+                        nome[j - 6] = '\0';
+                    }
+                    if (j >= 27 && j <= 35) {
                         timer[(j - 27)] = temp[j];
                     }
                 }
@@ -133,7 +136,7 @@ struct ranking getRanking(){ //Função que retorna estrutura do tipo ranking co
 
             }
             else{
-                pontos = VALUE;
+                pontos = MIN_PTS;
                 nome[0] = '\0';
                 timer[0] = '0';
                 timer[1] = '\0';
@@ -203,8 +206,7 @@ int numPlayers(){
     for (int i = 0; i < 5; i++)
     {
 
-        if ((lista + i)->points != VALUE)
-        {
+        if ((lista + i)->points != MIN_PTS) {
             contagem++;
         }
     }

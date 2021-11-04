@@ -312,6 +312,7 @@ void zeraGame(struct Game *self)
     self->pontuacao = 0;
     self->vidas = 3;
     self->resultado = NAO_ENCERRADO;
+    self->timer = 0;
     loadFase(self, 1);
 }
 
