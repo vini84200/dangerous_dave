@@ -29,8 +29,7 @@ void insertIntoRank(struct points self){
                 }
 
                 else if (a.points == b.points){
-                    if (a.timer < b.timer)
-                    {
+                    if (a.timer > b.timer) {
                         *(vetor + (i + 1)) = a;
                         *(vetor + i) = b;
                         valid++;
@@ -107,10 +106,9 @@ int goToRank(struct points self){ //Indica se um jogador pode entrar no ranking
         return 1; //True
     }
     else if (userP == lastP){
-        if (self.timer > ranking.fifth.timer){
+        if (self.timer < ranking.fifth.timer) {
             return 1;
-        }
-        else return 0;
+        } else return 0;
     }
     else return 0;
 }
