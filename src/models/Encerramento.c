@@ -10,5 +10,7 @@ struct Encerramento *newEncerramento(struct AppStateMachine *novaASM) {
     ptr->ASM = novaASM;
     ptr->estado = ESTADO_INICIAL;
     ptr->foi_pro_rank = 0;
+    ptr->modoDeEscrita = false;
+    ptr->ptr_digitacao = 0;
     return ptr;
 }

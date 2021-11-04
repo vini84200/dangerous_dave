@@ -14,6 +14,8 @@ struct Encerramento {
     int estado;
     int foi_pro_rank;
     char nome[20];
+    bool modoDeEscrita;
+    int ptr_digitacao;
 };
 
 
