@@ -60,3 +60,4 @@ build
 .vscode
 src/config.h
 src/models/ranking.txt
+src/models/tempCodeRunnerFile.c

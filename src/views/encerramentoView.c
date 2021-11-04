@@ -1,5 +1,6 @@
 #include "encerramentoView.h"
 
+
 void viewEncerramento(struct Encerramento *self) {
     char *message;
 
@@ -14,7 +15,18 @@ void viewEncerramento(struct Encerramento *self) {
     printw(message);
     move(3, 2);
     printw("Pontuação final: %04d", self->ASM->game->pontuacao);
-    //TODO Adiciona rank aqui
+
+    struct points aux;
+    aux.points = self->ASM->game->pontuacao;
+    aux.timer  = self->ASM->game->timer;
+
+    if(goToRank(aux) == 1){
+        printw("Voce esta entre os cinco melhores. Por favor, insira seu nome para participar do ranking: \n");
+        insertIntoRank(aux);
+        char *pointer = getTextRanking();
+        printw("%s", pointer);
+    }
+
 }
 
 bool handleInputEncerramento(struct Encerramento *self, int ch) {

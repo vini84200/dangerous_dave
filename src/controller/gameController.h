@@ -12,7 +12,7 @@
 #define TAXA_QUEDA 1.3f
 #define DURACAO_FRAME 0.25f
 #define QUANT_FRAMES 4
-#define QUANT_FASES 3
+#define QUANT_FASES 1
 #define MAX_JUMP 3
 
 
