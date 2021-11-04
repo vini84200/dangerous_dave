@@ -76,15 +76,15 @@ void saveRank(struct ranking self)
 
 
     if (pontos != NULL) {
-        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 0)->points, NOME_CHARS - 1, NOME_CHARS - 1, primeiro.name,
+        fprintf(pontos, "%5d %-*.*s %15s\n", (posicoes + 0)->points, NOME_CHARS - 1, NOME_CHARS - 1, primeiro.name,
                 timers + (TIMER_TEXT_CHARS * 0));
-        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 1)->points, NOME_CHARS - 1, NOME_CHARS - 1, segundo.name,
+        fprintf(pontos, "%5d %-*.*s %15s\n", (posicoes + 1)->points, NOME_CHARS - 1, NOME_CHARS - 1, segundo.name,
                 timers + (TIMER_TEXT_CHARS * 1));
-        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 2)->points, NOME_CHARS - 1, NOME_CHARS - 1, terceiro.name,
+        fprintf(pontos, "%5d %-*.*s %15s\n", (posicoes + 2)->points, NOME_CHARS - 1, NOME_CHARS - 1, terceiro.name,
                 timers + (TIMER_TEXT_CHARS * 2));
-        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 3)->points, NOME_CHARS - 1, NOME_CHARS - 1, quarto.name,
+        fprintf(pontos, "%5d %-*.*s %15s\n", (posicoes + 3)->points, NOME_CHARS - 1, NOME_CHARS - 1, quarto.name,
                 timers + (TIMER_TEXT_CHARS * 3));
-        fprintf(pontos, "%5d %*.*s %15s\n", (posicoes + 4)->points, NOME_CHARS - 1, NOME_CHARS - 1, quinto.name,
+        fprintf(pontos, "%5d %-*.*s %15s\n", (posicoes + 4)->points, NOME_CHARS - 1, NOME_CHARS - 1, quinto.name,
                 timers + (TIMER_TEXT_CHARS * 4));
 
         fclose(pontos);
