@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../core.h"
+#include "../utils/erros.h"
 
 #define VALUE -30000
 
