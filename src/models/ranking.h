@@ -36,3 +36,5 @@ void addNewRank(struct points *self);
 char *getRankingPath();
 
 int numPlayers();
+
+char *getTextRanking();

@@ -41,10 +41,10 @@ void drawMenu(struct Menu *self) {
         FILE *myFile;
         myFile = fopen(path, "r");
 
-        char *ranking = malloc(30);
+        char ranking[40];
 
         for (int i = 0; i < 5; i++) {
-            fgets(ranking, 30, myFile);
+            fgets(ranking, 40, myFile);
             ranking[strlen(ranking) - 1] = '\0';
 
             if (i < maxY - 2) {
@@ -55,8 +55,6 @@ void drawMenu(struct Menu *self) {
         fclose(myFile);
 
         myFile = NULL;
-        free(ranking);
-        ranking = NULL;
 
         free(path);
         path = NULL;

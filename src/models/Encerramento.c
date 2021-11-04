@@ -8,5 +8,7 @@ void destroyEncerramento(struct Encerramento *self) {
 struct Encerramento *newEncerramento(struct AppStateMachine *novaASM) {
     struct Encerramento *ptr = malloc(sizeof(struct Encerramento));
     ptr->ASM = novaASM;
+    ptr->estado = ESTADO_INICIAL;
+    ptr->foi_pro_rank = 0;
     return ptr;
 }

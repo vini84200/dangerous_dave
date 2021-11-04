@@ -6,4 +6,5 @@ void errorClose(char *msg) {
     puts("ERRO CRITICO: ");
     puts(msg);
     exit(2);
+
 }

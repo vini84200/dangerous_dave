@@ -18,15 +18,29 @@ void viewEncerramento(struct Encerramento *self) {
 
     struct points aux;
     aux.points = self->ASM->game->pontuacao;
-    aux.timer  = self->ASM->game->timer;
-
-    if(goToRank(aux) == 1){
-        printw("Voce esta entre os cinco melhores. Por favor, insira seu nome para participar do ranking: \n");
-        insertIntoRank(aux);
-        char *pointer = getTextRanking();
-        printw("%s", pointer);
+    aux.timer = self->ASM->game->timer;
+    switch (self->estado) {
+        case ESTADO_INICIAL:
+            if (goToRank(aux) == 1) {
+                self->foi_pro_rank = 1;
+                self->estado = ESTADO_PEDINDO_NOME;
+            } else {
+                self->estado = ESTADO_FINAL;
+            }
+            break;
+        case ESTADO_PEDINDO_NOME:
+            printw("Voce esta entre os cinco melhores. Por favor, insira seu nome para participar do ranking: \n");
+            strcpy(self->nome, "VINI");
+            self->estado = ESTADO_SALVANDO;
+            break;
+        case ESTADO_SALVANDO:
+            strcpy(aux.name, self->nome);
+            insertIntoRank(aux);
+            self->estado = ESTADO_FINAL;
     }
-
+    printw("\nVoce esta entre os cinco melhores. \n");
+    char *pointer = getTextRanking();
+    printw("%s \n %s \n %s\n %s \n %s", pointer, pointer + 40, pointer + 80, pointer + 120, pointer + 160);
 }
 
 bool handleInputEncerramento(struct Encerramento *self, int ch) {
