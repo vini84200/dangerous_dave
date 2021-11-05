@@ -1,6 +1,3 @@
-//
-// Created by vini84200 on 26/09/2021.
-//
 #pragma once
 
 #include "../core.h"

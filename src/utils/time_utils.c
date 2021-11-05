@@ -1,6 +1,3 @@
-//
-// Created by vini84200 on 10/10/2021.
-//
 #include "time_utils.h"
 #include "time.h"
 

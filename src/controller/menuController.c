@@ -1,7 +1,3 @@
-//
-// Created by vini84200 on 28/09/2021.
-//
-
 #include "menuController.h"
 
 void updateMenu(struct Menu *self, double delta) {

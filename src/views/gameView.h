@@ -1,7 +1,3 @@
-//
-// Created by vini84200 on 27/09/2021.
-//
-
 #ifndef DDAVE_GAMEVIEW_H
 #define DDAVE_GAMEVIEW_H
 

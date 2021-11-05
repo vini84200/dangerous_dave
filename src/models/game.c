@@ -1,7 +1,3 @@
-//
-// Created by vini84200 on 27/09/2021.
-//
-
 #include "Menu.h"
 #include "../controller/gameController.h"
 #include "game.h"

@@ -53,7 +53,7 @@ void viewEncerramento(struct Encerramento *self) {
                 printw("\nVoce esta entre os cinco melhores. \n");
             }
             char *pointer = getTextRanking();
-            printw("%s \n %s \n %s\n %s \n %s", pointer, pointer + TEXT_RANK_SIZE, pointer + 2 * TEXT_RANK_SIZE,
+            printw("%s \n  %s \n  %s\n  %s \n  %s", pointer, pointer + TEXT_RANK_SIZE, pointer + 2 * TEXT_RANK_SIZE,
                    pointer + 3 * TEXT_RANK_SIZE, pointer + 4 * TEXT_RANK_SIZE);
             break;
     }
@@ -66,7 +66,7 @@ bool handleInputEncerramento(struct Encerramento *self, int ch) {
             if (self->estado == ESTADO_PEDINDO_NOME) {
                 leave_modoEscrita(self);
                 self->foi_pro_rank = false;
-                self->estado == ESTADO_FINAL;
+                self->estado = ESTADO_FINAL;
             } else {
                 mudarEstado(self->ASM, MENU);
             }

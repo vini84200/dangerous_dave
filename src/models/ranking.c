@@ -180,7 +180,7 @@ char *getTextRanking() {
         } else {
             char time[30];
             getTimerText(p.timer, time);
-            sprintf(pontos + i * TEXT_RANK_SIZE, "%d - %s - %s", p.points, p.name, time);
+            sprintf(pontos + i * TEXT_RANK_SIZE, "%5d - %s - %s", p.points, p.name, time);
         }
     }
 
